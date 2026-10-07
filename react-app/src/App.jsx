@@ -6,9 +6,15 @@ import './App.css'
 
 const CART_KEY = 'mobilezone-cart-items'
 const OLD_CART_COUNT_KEY = 'mobilezone-cart-count'
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '')
 
 function getLocation() {
-  const path = window.location.pathname
+  const pathname = window.location.pathname
+  const path = BASE_PATH && pathname.startsWith(`${BASE_PATH}/`)
+    ? pathname.slice(BASE_PATH.length)
+    : BASE_PATH && pathname === BASE_PATH
+      ? '/'
+      : pathname
   return { path: path === '/' || path === '/index.html' ? '/inicio' : path, search: window.location.search }
 }
 
@@ -63,7 +69,7 @@ function App() {
   const navigate = (destination) => {
     const next = new URL(destination, window.location.origin)
     const path = next.pathname === '/' || next.pathname === '/index.html' ? '/inicio' : next.pathname
-    window.history.pushState({}, '', `${path}${next.search}${next.hash}`)
+    window.history.pushState({}, '', `${BASE_PATH}${path}${next.search}${next.hash}`)
     setLocation({ path, search: next.search })
     window.scrollTo({ top: 0, behavior: 'instant' })
   }

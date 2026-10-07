@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { navItems } from '../data/catalog.js'
 
+const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '')
+
 function RouteLink({ path, onNavigate, children, className = '', ...props }) {
   return (
     <a
-      href={path}
+      href={`${BASE_PATH}${path}`}
       className={className}
       onClick={(event) => {
         if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
