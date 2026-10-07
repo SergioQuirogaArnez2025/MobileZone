@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carrito de Compras - MobileZone</title>
+<meta name="description" content="Revisa tus productos seleccionados y completa tu compra en MobileZone."/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      window.tailwind = window.tailwind || {}; tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#d8e3fb",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#111c2d",
+                    "on-secondary-fixed-variant": "#005321",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-tint": "#0053db",
+                    "background": "#f9f9ff",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "on-primary-fixed": "#00174b",
+                    "muted": "#64748b",
+                    "outline": "#737686",
+                    "inverse-surface": "#263143",
+                    "on-tertiary-container": "#ffede6",
+                    "primary": "#004ac6",
+                    "on-tertiary-fixed-variant": "#7d2d00",
+                    "error": "#ba1a1a",
+                    "surface-container": "#e7eeff",
+                    "line": "#e2e8f0",
+                    "surface-container-low": "#f0f3ff",
+                    "inverse-on-surface": "#ecf1ff",
+                    "on-primary-container": "#eeefff",
+                    "pale": "#f8fafc",
+                    "primary-container": "#2563eb",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-bright": "#f9f9ff",
+                    "secondary-fixed": "#6bff8f",
+                    "on-secondary-fixed": "#002109",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#360f00",
+                    "secondary": "#006e2f",
+                    "on-primary": "#ffffff",
+                    "surface-dim": "#cfdaf2",
+                    "on-secondary-container": "#007432",
+                    "surface": "#f9f9ff",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#d8e3fb",
+                    "tertiary-fixed-dim": "#ffb596",
+                    "on-background": "#111c2d",
+                    "tertiary-container": "#bc4800",
+                    "secondary-fixed-dim": "#4ae176",
+                    "on-surface-variant": "#434655",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary": "#943700",
+                    "tertiary-fixed": "#ffdbcd",
+                    "surface-container-high": "#dee8ff",
+                    "secondary-container": "#6bff8f",
+                    "error-container": "#ffdad6",
+                    "primary-fixed-dim": "#b4c5ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "16px",
+                    "max-width": "1280px"
+            },
+            "fontFamily": {
+                    "display-hero": ["Space Grotesk"],
+                    "body-lg": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "headline-md": ["Space Grotesk"],
+                    "label-md": ["DM Sans"],
+                    "headline-lg": ["Space Grotesk"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "label-sm": ["DM Sans"]
+            },
+            "fontSize": {
+                    "display-hero": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 10px 30px -10px rgba(37, 99, 235, 0.05);
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px -5px rgba(37, 99, 235, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .soft-shadow:hover {
+            box-shadow: 0 8px 30px -5px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px) scale(1.01);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pt-16">
+<!-- TopNavBar (Transactional Intent - Minimal/Hidden Nav) -->
+<!-- Suppressing main nav links per Semantic Shell Mandate for transactional page (Cart) -->
+<header class="bg-white/50 dark:bg-on-surface/50 backdrop-blur-md text-primary dark:text-primary-fixed font-body-md text-body-md fixed top-0 w-full z-50 border-b border-line dark:border-outline-variant shadow-sm flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 max-w-max-width mx-auto">
+<a class="font-display-hero text-headline-md-mobile tracking-tighter text-primary dark:text-primary-fixed md:text-headline-md" href="#">
+            MOBILEZONE
+        </a>
+<div class="flex items-center space-x-4">
+<button aria-label="Volver" class="hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 transition-all duration-300 p-2 rounded-full active:scale-95 opacity-80">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="close">close</span>
+</button>
+</div>
+</header>
+<main class="cart-page flex-grow w-full max-w-max-width mx-auto px-4 md:px-10 lg:px-16 py-12 md:py-20">
+<div class="mb-8">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-2">Tu Carrito</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Revisa los artículos seleccionados antes de finalizar tu compra.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Cart Items Section -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Product Item 1 -->
+<div class="glass-panel rounded-xl p-4 md:p-6 flex flex-col sm:flex-row gap-6 relative group soft-shadow bg-surface-container-lowest">
+<div class="w-full sm:w-32 h-32 bg-pale rounded-lg flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-surface-container to-surface-container-lowest opacity-50"></div>
+<img alt="Smartphone Premium" class="object-cover w-full h-full z-10 p-2" data-alt="A sleek, high-end smartphone with a titanium finish, displayed against a pristine white studio background with soft, diffused lighting emphasizing its premium glass back and camera module. The aesthetic is clean, technological, and minimalist, typical of modern high-end electronics retail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvbRPPiVcieB0SEEec77FQsuAxQroByfSEvbweNVqVPgn9VplAi7ClMU6Ksogn3m7s15pnz_w3wp1bIffHhS5J8J7VJxer4wdgod7oWZpZu99fzCecIpE29hT0b-K8rQjeW7SvWajNLE76AABReNr6UhQ6XXolllCfRvPa2Bu82YjZNXtQzZ-_ozqShTfx2_z2myLtnpdsJApAuj1GryUZJHQzp5JuWnNFQ0UVSNOPcZU_UlcIPudh"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background text-lg">Smartphone X Pro Max</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">256GB, Titanium Black</p>
+</div>
+<button aria-label="Eliminar producto" class="text-muted hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-6">
+<div class="flex items-center border border-line rounded-lg bg-surface-container-lowest overflow-hidden">
+<button aria-label="Disminuir cantidad" class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-3 font-label-md text-label-md text-on-background min-w-[2rem] text-center">1</span>
+<button aria-label="Aumentar cantidad" class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+<span class="font-headline-md text-headline-md text-primary text-xl">$1,199.00</span>
+</div>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="glass-panel rounded-xl p-4 md:p-6 flex flex-col sm:flex-row gap-6 relative group soft-shadow bg-surface-container-lowest">
+<div class="w-full sm:w-32 h-32 bg-pale rounded-lg flex items-center justify-center flex-shrink-0 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-tr from-surface-container to-surface-container-lowest opacity-50"></div>
+<img alt="Auriculares Inalámbricos" class="object-cover w-full h-full z-10 p-2" data-alt="A pair of premium true wireless earbuds in a matte white charging case. The earbuds rest slightly outside the case on a bright, minimalist surface. Lighting is soft and bright, highlighting the smooth contours and high-tech minimalist design of the audio accessory." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh93UrEDYVTV0n9bFiu3w5DDIgUqXAXyY36jP-jZZUNslCqdGlcFkSTmSYp0asrrr5Huj0CFUt7vOogIaRgjDDih3wYuaYl2GHTTVWDHosPHTFcff78apcSZw7FCTu_ygaCRfGkFip2xhr7gYy1yebLELRuhw_FhWyj5sFOkAnlxm_RRoL526oNz_IY_xmJBgEdTI68j0PjkkYKKJOWbplup0xgPb-0ZSu8eK_6Y-rcJuk-HStWMiY"/>
+</div>
+<div class="flex-grow flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background text-lg">SonicBuds Pro 2</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Active Noise Cancelling, White</p>
+</div>
+<button aria-label="Eliminar producto" class="text-muted hover:text-error transition-colors p-1">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-6">
+<div class="flex items-center border border-line rounded-lg bg-surface-container-lowest overflow-hidden">
+<button aria-label="Disminuir cantidad" class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-3 font-label-md text-label-md text-on-background min-w-[2rem] text-center">2</span>
+<button aria-label="Aumentar cantidad" class="px-3 py-1 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+<span class="font-headline-md text-headline-md text-primary text-xl">$498.00</span>
+</div>
+</div>
+</div>
+<!-- Empty Cart State (Hidden by default, toggleable via JS if needed, showing for reference) -->
+<!-- <div class="glass-panel rounded-xl p-12 flex flex-col items-center justify-center text-center">
+                    <span class="material-symbols-outlined text-6xl text-muted mb-4" data-icon="shopping_bag" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+                    <h3 class="font-headline-md text-headline-md text-on-background mb-2">Tu carrito está vacío</h3>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">Parece que aún no has añadido ningún producto de alta tecnología.</p>
+                    <button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-on-primary-fixed transition-colors duration-300">Explorar Productos</button>
+                </div> -->
+</div>
+<!-- Order Summary Section -->
+<div class="lg:col-span-4 mt-8 lg:mt-0">
+<div class="glass-panel rounded-xl p-6 bg-surface-container-lowest sticky top-24">
+<h2 class="font-headline-md text-headline-md text-on-background mb-6 text-xl">Resumen del Pedido</h2>
+<div class="space-y-4 font-body-md text-body-md">
+<div class="flex justify-between text-on-surface-variant">
+<span>Subtotal (0 artículos)</span>
+<span class="text-on-background font-medium">$0.00</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Envío Estimado</span>
+<span class="text-secondary font-medium">Gratis</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>Impuestos (Calculados en caja)</span>
+<span class="text-on-background font-medium">--</span>
+</div>
+<div class="border-t border-line my-4 pt-4">
+<div class="flex justify-between items-end">
+<span class="font-headline-md text-headline-md text-on-background text-lg">Total</span>
+<span class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary text-3xl">$0.00</span>
+</div>
+</div>
+</div>
+<div class="mt-8 space-y-4">
+<p class="font-label-sm text-label-sm text-on-surface-variant text-center uppercase tracking-wider">Finalizar Compra Seguro</p>
+<button class="w-full bg-[#25d366] hover:bg-[#128c7e] text-white font-label-md text-label-md px-6 py-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg transform active:scale-95" onclick="window.open('https://wa.me/59162628578', '_blank', 'noopener,noreferrer')" type="button">
+<svg class="w-5 h-5" fill="currentColor" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.88-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path>
+</svg>
+                            Completar por WhatsApp
+                        </button>
+<p class="font-label-sm text-label-sm text-muted text-center mt-2">Serás redirigido a WhatsApp para coordinar el pago y envío con un asesor.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface text-primary dark:text-primary-fixed font-body-md text-body-md w-full py-12 border-t border-line dark:border-outline-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div class="md:col-span-1">
+<span class="font-display-hero text-headline-md text-primary dark:text-primary-fixed mb-4 block">MOBILEZONE</span>
+<p class="text-on-surface-variant dark:text-surface-variant mb-6 text-sm">Tecnología premium a tu alcance. Especialistas en dispositivos móviles de alta gama.</p>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-label-md text-label-md font-bold mb-4">Navegación</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Inicio</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Smartphones</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Comparar</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Ofertas</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-label-md text-label-md font-bold mb-4">Soporte</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Contacto</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Garantía</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Envíos</a></li>
+</ul>
+</div>
+<div class="md:col-span-1">
+<h4 class="font-label-md text-label-md font-bold mb-4">Social</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Instagram</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="https://www.facebook.com/MobileZone.AR" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+<li><a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300 flex items-center gap-1" href="https://wa.me/59162628578" target="_blank" rel="noopener noreferrer">
+                        WhatsApp <span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+</a></li>
+</ul>
+</div>
+</div>
+<div class="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mt-12 pt-6 border-t border-line/50">
+<p class="text-on-surface-variant dark:text-surface-variant text-sm text-center">© 2026 Sergio Quiroga. Todos los derechos reservados.</p>
+</div>
+</footer>
+<script src="mobilezone_shared.js"></script>
+</body></html>

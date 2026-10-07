@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ofertas Especiales - MobileZone</title>
+<meta name="description" content="Aprovecha ofertas especiales en smartphones y accesorios seleccionados de MobileZone."/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        window.tailwind = window.tailwind || {}; tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d8e3fb",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "on-secondary-fixed-variant": "#005321",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#0053db",
+                        "background": "#f9f9ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary-fixed": "#00174b",
+                        "muted": "#64748b",
+                        "outline": "#737686",
+                        "inverse-surface": "#263143",
+                        "on-tertiary-container": "#ffede6",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "error": "#ba1a1a",
+                        "surface-container": "#e7eeff",
+                        "line": "#e2e8f0",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-primary-container": "#eeefff",
+                        "pale": "#f8fafc",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed": "#6bff8f",
+                        "on-secondary-fixed": "#002109",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "secondary": "#006e2f",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary-container": "#007432",
+                        "surface": "#f9f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#d8e3fb",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-background": "#111c2d",
+                        "tertiary-container": "#bc4800",
+                        "secondary-fixed-dim": "#4ae176",
+                        "on-surface-variant": "#434655",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#943700",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-high": "#dee8ff",
+                        "secondary-container": "#6bff8f",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-hero": ["Space Grotesk"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-md": ["DM Sans"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "label-sm": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "display-hero": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid theme('colors.line');
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1), 0 8px 10px -6px rgba(37, 99, 235, 0.05);
+        }
+        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-white/50 dark:bg-on-surface/50 backdrop-blur-md fixed top-0 w-full z-50 border-b border-line dark:border-outline-variant shadow-sm transition-all duration-300 h-16">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-max-width mx-auto">
+<div class="font-display-hero text-headline-md-mobile md:text-headline-md tracking-tighter text-primary dark:text-primary-fixed">MOBILEZONE</div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 duration-300 px-3 py-2 rounded-lg" href="#">Inicio</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 duration-300 px-3 py-2 rounded-lg" href="#">Smartphones</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 duration-300 px-3 py-2 rounded-lg" href="#">Comparar</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary font-body-md text-body-md hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 duration-300 px-3 py-2 rounded-t-lg" href="#">Ofertas</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-body-md text-body-md hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 duration-300 px-3 py-2 rounded-lg" href="#">Contacto</a>
+</nav>
+<div class="flex items-center gap-4">
+<button aria-label="Search" class="text-on-surface-variant hover:text-primary transition-transform active:scale-95 opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">search</span>
+</button>
+<button aria-label="Cart" class="text-on-surface-variant hover:text-primary transition-transform active:scale-95 opacity-80 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_cart</span>
+<span class="absolute -top-1 -right-1 bg-secondary text-on-secondary font-label-sm text-label-sm w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+<button aria-label="Menu" class="md:hidden text-on-surface-variant hover:text-primary transition-transform active:scale-95 opacity-80">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="offers-page flex-grow pt-24 pb-20 px-4 md:px-8">
+<!-- Promo Banner -->
+<section class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop mb-16 fade-in">
+<div class="relative rounded-xl overflow-hidden bg-gradient-to-r from-primary to-surface-tint text-on-primary shadow-lg group">
+<div class="absolute inset-0 bg-[url('placeholder')] bg-cover bg-center opacity-30 mix-blend-overlay transition-transform duration-700 group-hover:scale-105" data-alt="A high-end, abstract technological background featuring glowing fiber optic lines and sleek metallic surfaces in dark blues and vibrant neon accents, suitable for a premium tech retail promotion banner."></div>
+<div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="max-w-lg">
+<span class="inline-block bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-3 py-1 rounded-full mb-4 uppercase tracking-wider">Cyber Week</span>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-4">Ahorra hasta un 40% en Premium</h1>
+<p class="font-body-lg text-body-lg text-primary-fixed mb-6">Equípate con la última tecnología a precios irrepetibles. Solo por tiempo limitado.</p>
+<button class="bg-on-primary text-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-container-low transition-colors duration-300 shadow-sm flex items-center gap-2">
+                            Ver todas las ofertas
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="hidden md:block w-64 h-64 relative">
+<img class="w-full h-full object-contain drop-shadow-2xl" data-alt="A sleek, modern smartphone hovering elegantly against a dark, tech-inspired background with subtle blue glowing accents highlighting its premium glass and metal build." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjTFd9zaP_K2Tr6hx02OM24grpSS6Gi05uQMPc_mKaPLohWMHY-QbVZcjT9T-ujkCYAWQ7xBFlkX-YDhQiQYoauQ8iQnMWMVzrCaAXJjCFWCz_1ND1ME71P8LVz7xIyF8wMPfFX6FNF3ymByrIE6N73pXDE-5qsAYmT8YRW1xkvwG8-B0spYL4Cg9syEtWdnjfYbu4Fbhd_5ep6Z-pNX2LCTPai5FVQkI1FVZIS5o8wAILW3gB-AIR"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Grid -->
+<section class="max-w-max-width mx-auto px-margin-mobile md:px-margin-desktop mb-24">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-2">Ofertas Destacadas</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Los dispositivos más buscados con descuentos exclusivos.</p>
+</div>
+<div class="hidden md:flex gap-2">
+<button class="bg-surface text-on-surface border border-line px-4 py-2 rounded-lg font-label-md text-label-md hover:border-primary transition-colors">Smartphones</button>
+<button class="bg-surface text-on-surface border border-line px-4 py-2 rounded-lg font-label-md text-label-md hover:border-primary transition-colors">Accesorios</button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+<!-- Product 1 -->
+<article class="product-card bg-surface-container-lowest rounded-xl border border-line overflow-hidden relative fade-in" style="animation-delay: 0.1s;">
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-1 rounded-full">-25%</span>
+<span class="bg-surface-container-high text-on-surface font-label-sm text-label-sm px-2 py-1 rounded-full">Envío Gratis</span>
+</div>
+<button class="absolute top-4 right-4 z-10 text-outline hover:text-primary transition-colors bg-white/80 rounded-full p-1 backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="h-64 bg-gradient-to-b from-surface-container-low to-surface-container-lowest p-6 flex items-center justify-center">
+<img class="max-h-full object-contain" data-alt="Front and back view of a high-end, premium smartphone with a glossy black finish and large camera module, floating elegantly against a soft light blue studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhaUvG2wZmva20km_CMTs704iIiyJWj0M6MHE0l5kRevnlMyyTQNrhc_-vAmXABZQgJfOwS3XJ1th8r1Uj4D7InmXQqcATUdHCjdqfybXHl1BNw5iVVK2Xhy9MKWkFmHyDeJ7dLTAhFe7JkIPsW191mDNipQY38brgEc1x7oZoCdXGFi8fGMhu3Zxkh3SFMoT8ZPafBpsRWdb-kXVA2QAYiSausQw8PYuDmZ97JHmD_icyzslJo2Bo"/>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-[18px] mb-1 text-on-surface">Galaxy S24 Ultra</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-4">256GB / Titanium Gray</p>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-headline-md text-[20px] text-secondary">$1,099</span>
+<span class="font-body-md text-[14px] text-muted line-through">$1,459</span>
+</div>
+<button class="w-full bg-surface text-on-surface border border-line font-label-md text-label-md py-3 rounded-lg hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                            Añadir al Carrito
+                        </button>
+</div>
+</article>
+<!-- Product 2 -->
+<article class="product-card bg-surface-container-lowest rounded-xl border border-line overflow-hidden relative fade-in" style="animation-delay: 0.2s;">
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-1 rounded-full">-15%</span>
+</div>
+<button class="absolute top-4 right-4 z-10 text-outline hover:text-primary transition-colors bg-white/80 rounded-full p-1 backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="h-64 bg-gradient-to-b from-surface-container-low to-surface-container-lowest p-6 flex items-center justify-center">
+<img class="max-h-full object-contain" data-alt="Sleek, modern minimalist smartphone in a matte white finish, showcasing a clean back design, isolated against a soft, bright studio background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeGIZmMxgEbLYeIFBtmsXZQm5r7EiKAgmsNWaTCGAwGOhvwMTzBQEgrJLagwBH6_ZlnfIPYZBR2jlMrdaf8QVuJkBkCquYyTru6f_EVD-mLYg2rp6S9M257glUwdwwfGaa3WeOnm0DhnuJzB71lF6_2SKeIQ2U9mkTLJHeV0N5lguAypfmIaj0nYzzLQhyI_8CncN_GMQK5GWXfzxuxAT3ch0rWDQ4548hPT0n1ds56XObXN8OewqS"/>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-[18px] mb-1 text-on-surface">iPhone 15 Pro</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-4">128GB / Natural Titanium</p>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-headline-md text-[20px] text-secondary">$1,029</span>
+<span class="font-body-md text-[14px] text-muted line-through">$1,219</span>
+</div>
+<button class="w-full bg-surface text-on-surface border border-line font-label-md text-label-md py-3 rounded-lg hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                            Añadir al Carrito
+                        </button>
+</div>
+</article>
+<!-- Product 3 -->
+<article class="product-card bg-surface-container-lowest rounded-xl border border-line overflow-hidden relative fade-in" style="animation-delay: 0.3s;">
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-1 rounded-full">-30%</span>
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-1 rounded-full">Últimas unidades</span>
+</div>
+<button class="absolute top-4 right-4 z-10 text-outline hover:text-primary transition-colors bg-white/80 rounded-full p-1 backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="h-64 bg-gradient-to-b from-surface-container-low to-surface-container-lowest p-6 flex items-center justify-center">
+<img class="max-h-full object-contain" data-alt="High-performance gaming smartphone with aggressive design lines, glowing RGB accents on the back, and a large cooling vent, set against a subtle technical background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdZoSjgBw-cwxmegr06yf5wglmoxMZU_fbX5qs5bBddHi5ZU6q6bHhQ7N1VlvYyCQeYHqxtVk3Ay5Gs0qnGQNGyzIIc2mwQ_JDkNd9Xzt_nRllUROv0DfW4XqtG-7I6GMA0n8ICSMqVBy9gWCFKDNFO_1bJwZPdNVtXb69oGeXzGwFGb_ueVxhp9eZ1WqLdTsvcMZfIRgT3l4TU-yo-rZrTuyIyyPay88A_4SZsjWbLgS-5URPEsgu"/>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-[18px] mb-1 text-on-surface">ROG Phone 8</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-4">512GB / Phantom Black</p>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-headline-md text-[20px] text-secondary">$839</span>
+<span class="font-body-md text-[14px] text-muted line-through">$1,199</span>
+</div>
+<button class="w-full bg-surface text-on-surface border border-line font-label-md text-label-md py-3 rounded-lg hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                            Añadir al Carrito
+                        </button>
+</div>
+</article>
+<!-- Product 4 -->
+<article class="product-card bg-surface-container-lowest rounded-xl border border-line overflow-hidden relative fade-in" style="animation-delay: 0.4s;">
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-2">
+<span class="bg-secondary text-on-secondary font-label-sm text-label-sm px-2 py-1 rounded-full">-40%</span>
+</div>
+<button class="absolute top-4 right-4 z-10 text-outline hover:text-primary transition-colors bg-white/80 rounded-full p-1 backdrop-blur-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">favorite</span>
+</button>
+<div class="h-64 bg-gradient-to-b from-surface-container-low to-surface-container-lowest p-6 flex items-center justify-center">
+<img class="max-h-full object-contain" data-alt="A pair of premium wireless noise-canceling earbuds in a matte black charging case, slightly opened, glowing softly in a minimal tech environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYdfMJekz4A8IJhwqJpCJT8Be7thN8iG79rmfbrXL81wWiM8eB6e4W3FXQoSqRmLY37oAQJkv_FLRDqEa9f5jf8j3wC9jU8kkXGdutLWGovn6rN1kH7AdtwsX_7W6hDXiIJC_-ee15KmrdojnxkA0BFS9g3_gtkxnlcfiO1_BUbB8dJrd5SdWF_hytHUP5rk6SxXXDXt63iXgQfPmZabgjE-njazQ5DwR_fbdfiE640zQaL58p1WR8"/>
+</div>
+<div class="p-6">
+<h3 class="font-headline-md text-[18px] mb-1 text-on-surface">Pixel Buds Pro</h3>
+<p class="font-body-md text-[14px] text-on-surface-variant mb-4">Charcoal / ANC Activo</p>
+<div class="flex items-center gap-3 mb-4">
+<span class="font-headline-md text-[20px] text-secondary">$137</span>
+<span class="font-body-md text-[14px] text-muted line-through">$229</span>
+</div>
+<button class="w-full bg-surface text-on-surface border border-line font-label-md text-label-md py-3 rounded-lg hover:border-primary hover:text-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">shopping_cart</span>
+                            Añadir al Carrito
+                        </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Newsletter Subscription -->
+<section class="max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop fade-in">
+<div class="bg-surface-container-low rounded-2xl p-8 md:p-12 text-center border border-line relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed-dim/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary text-4xl mb-4" style="font-variation-settings: 'FILL' 0;">mail</span>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-3">No te pierdas ninguna oferta</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-8 max-w-lg mx-auto">Suscríbete a nuestra newsletter y recibe notificaciones anticipadas de nuestras promociones flash y descuentos exclusivos.</p>
+<form class="max-w-md mx-auto relative" id="newsletter-form">
+<div class="flex flex-col sm:flex-row gap-3">
+<div class="flex-grow relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-muted" style="font-variation-settings: 'FILL' 0;">alternate_email</span>
+<input class="w-full pl-10 pr-4 py-3 rounded-lg border border-line bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary transition-all text-on-surface font-body-md outline-none" id="email-input" placeholder="tu@email.com" required="" type="email"/>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-on-primary-fixed-variant transition-colors whitespace-nowrap" type="submit">
+                                Suscribirme
+                            </button>
+</div>
+<p class="hidden text-sm mt-3 font-label-sm text-secondary" id="form-message"></p>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface w-full py-12 border-t border-line dark:border-outline-variant mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<div>
+<span class="font-display-hero text-headline-md text-primary dark:text-primary-fixed mb-4 block tracking-tighter">MOBILEZONE</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Especialistas en tecnología móvil premium y accesorios de alto rendimiento.</p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Navegación</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Inicio</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Smartphones</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Comparar</a>
+<a class="font-body-md text-body-md text-primary font-bold hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Ofertas</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Ayuda</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Contacto</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Soporte</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Garantía</a>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-label-md text-label-md font-bold text-on-surface">Síguenos</h4>
+<div class="flex gap-4">
+<a aria-label="Instagram" class="text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">photo_camera</span>
+</a>
+<a aria-label="Facebook" class="text-on-surface-variant hover:text-primary transition-colors" href="https://www.facebook.com/MobileZone.AR" target="_blank" rel="noopener noreferrer">
+<span class="material-symbols-outlined">thumb_up</span>
+</a>
+<a aria-label="WhatsApp" class="text-on-surface-variant hover:text-primary transition-colors" href="https://wa.me/59162628578" target="_blank" rel="noopener noreferrer">
+<span class="material-symbols-outlined">chat</span>
+</a>
+</div>
+</div>
+<div class="col-span-1 md:col-span-4 mt-8 pt-8 border-t border-line text-center md:text-left">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2026 Sergio Quiroga. Todos los derechos reservados.</p>
+</div>
+</div>
+</footer>
+<script>
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('email-input');
+            const messageEl = document.getElementById('form-message');
+            const email = emailInput.value;
+
+            if(email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                messageEl.textContent = '¡Gracias! Te has suscrito correctamente a nuestras ofertas.';
+                messageEl.classList.remove('hidden', 'text-error');
+                messageEl.classList.add('text-secondary');
+                emailInput.value = '';
+                emailInput.classList.remove('border-error');
+            } else {
+                messageEl.textContent = 'Por favor, introduce un email válido.';
+                messageEl.classList.remove('hidden', 'text-secondary');
+                messageEl.classList.add('text-error');
+                emailInput.classList.add('border-error');
+            }
+        });
+    </script>
+<script src="mobilezone_shared.js"></script>
+</body></html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Comparación - MobileZone</title>
+<!-- Tailwind CSS -->
+<meta name="description" content="Compara las especificaciones y precios de los mejores smartphones de MobileZone."/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config injected from Style Guidance -->
+<script id="tailwind-config">
+        window.tailwind = window.tailwind || {}; tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#d8e3fb",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#111c2d",
+                        "on-secondary-fixed-variant": "#005321",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-tint": "#0053db",
+                        "background": "#f9f9ff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary-fixed": "#00174b",
+                        "muted": "#64748b",
+                        "outline": "#737686",
+                        "inverse-surface": "#263143",
+                        "on-tertiary-container": "#ffede6",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "error": "#ba1a1a",
+                        "surface-container": "#e7eeff",
+                        "line": "#e2e8f0",
+                        "surface-container-low": "#f0f3ff",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-primary-container": "#eeefff",
+                        "pale": "#f8fafc",
+                        "primary-container": "#2563eb",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed": "#6bff8f",
+                        "on-secondary-fixed": "#002109",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "secondary": "#006e2f",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cfdaf2",
+                        "on-secondary-container": "#007432",
+                        "surface": "#f9f9ff",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#d8e3fb",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-background": "#111c2d",
+                        "tertiary-container": "#bc4800",
+                        "secondary-fixed-dim": "#4ae176",
+                        "on-surface-variant": "#434655",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#943700",
+                        "tertiary-fixed": "#ffdbcd",
+                        "surface-container-high": "#dee8ff",
+                        "secondary-container": "#6bff8f",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "max-width": "1280px"
+                    },
+                    "fontFamily": {
+                        "display-hero": ["Space Grotesk"],
+                        "body-lg": ["DM Sans"],
+                        "body-md": ["DM Sans"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-md": ["DM Sans"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "label-sm": ["DM Sans"]
+                    },
+                    "fontSize": {
+                        "display-hero": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.03em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid theme('colors.line');
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid theme('colors.line');
+            box-shadow: 0 4px 20px rgba(37, 99, 235, 0.05);
+            transition: all 300ms ease-in-out;
+        }
+
+        .glass-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.1);
+        }
+
+        /* Scrollbar hiding for horizontal scroll */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md bg-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/50 dark:bg-on-surface/50 backdrop-blur-md border-b border-line dark:border-outline-variant shadow-sm transition-all duration-300">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full max-w-max-width mx-auto">
+<!-- Logo -->
+<a class="font-display-hero text-headline-md-mobile tracking-tighter text-primary dark:text-primary-fixed hover:scale-95 opacity-80 transition-transform" href="#">
+                MOBILEZONE
+            </a>
+<!-- Desktop Nav Links -->
+<div class="hidden md:flex items-center gap-8">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Inicio</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Smartphones</a>
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Comparar</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Ofertas</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Contacto</a>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 transition-all duration-300 text-primary dark:text-primary-fixed hover:scale-95 opacity-80 transition-transform">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 transition-all duration-300 text-primary dark:text-primary-fixed hover:scale-95 opacity-80 transition-transform">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="md:hidden p-2 rounded-full hover:bg-surface-container-low/50 dark:hover:bg-surface-variant/20 transition-all duration-300 text-primary dark:text-primary-fixed hover:scale-95 opacity-80 transition-transform">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow pt-32 pb-24 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-16 text-center max-w-2xl mx-auto">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-4">Compara de un vistazo</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Analiza las especificaciones técnicas lado a lado y encuentra el smartphone perfecto para tus necesidades. Nuestra selección premium, simplificada para ti.</p>
+</div>
+<!-- Comparison Table Area -->
+<div class="relative w-full overflow-x-auto hide-scrollbar pb-8">
+<div class="min-w-[800px] w-full bg-surface-container-lowest rounded-xl shadow-sm border border-line overflow-hidden">
+<!-- Table Header (Products) -->
+<div class="grid grid-cols-4 border-b border-line bg-pale">
+<div class="p-6 flex flex-col justify-end">
+<span class="font-label-md text-label-md text-muted uppercase tracking-wider">Características</span>
+</div>
+<!-- Product 1 -->
+<div class="p-6 flex flex-col items-center text-center border-l border-line relative group">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-low/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="w-24 h-32 mb-4 bg-gradient-to-br from-surface-container-highest to-surface-dim rounded-lg p-2 shadow-inner">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="A sleek, high-end metallic smartphone representing an iPhone 15, shown against a bright, minimalist white background with soft studio lighting. The device is standing upright, showcasing a clean glass back and smooth rounded edges in a premium technological setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3o2bblWmt9OHz7wHtLc9WAMKYjMzvIrK6fk6fWjlLrynbPwI5KhRKH0_pioGeOEQ7ESmAXT1vOXCrwiFk_-wHfHUiTHatFsJF9NqKmvlAMEUkGSwRvBmCK6H3T_U7FAVa-3bibWJvsyB91E1uLFQWkgTOxwLAp76WQLyW8W0-9N31TtCxY-Yxy9ACenhWA41n6g83LxNfKYedOsEu35JHksMluq9-zX1Ntlx4_12kuyqUiLa0n1nC"/>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">iPhone 15</h3>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full mb-4">Popular</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">El estándar de la industria</p>
+<button class="w-full bg-surface-container-lowest text-primary-container border border-line font-label-md text-label-md py-3 rounded-lg hover:bg-pale hover:border-primary-container transition-all duration-300">
+                            Comprar $999
+                        </button>
+</div>
+<!-- Product 2 -->
+<div class="p-6 flex flex-col items-center text-center border-l border-line relative group">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-low/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="w-24 h-32 mb-4 bg-gradient-to-br from-surface-container-highest to-surface-dim rounded-lg p-2 shadow-inner">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="A cutting-edge Android flagship smartphone representing a Galaxy S24, featuring a sophisticated flat edge design and multiple camera lenses on the back. It is illuminated by a soft, cool blue light in a clean, minimalist studio environment, emphasizing premium hardware." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5Z3At42G3r-lzwA3m8bDvx2t_qaS07Jk5tNMw4NtUZ51fOKtG3AsCkBEjP0cUz3fuR8B0kaMoYd2Ddc4cEB-AIOJ7BKtDK2lhGq5NsDbxWKFHHsWnVPtadCXEyhMrFFpyYnldI4HQKqVZRLylZbxfaaJ2SVZctt5miMXoKVQXXmhOXeedteUNbNCht3dKiLd4zwlVoekgXcPortRzMIVqYMnN24dObezg9SnuVDYJfksaZkt664yX"/>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Galaxy S24</h3>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full mb-4">Nuevo</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Poder con Inteligencia Artificial</p>
+<button class="w-full bg-surface-container-lowest text-primary-container border border-line font-label-md text-label-md py-3 rounded-lg hover:bg-pale hover:border-primary-container transition-all duration-300">
+                            Comprar $799
+                        </button>
+</div>
+<!-- Product 3 -->
+<div class="p-6 flex flex-col items-center text-center border-l border-line relative group">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-surface-container-low/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+<div class="w-24 h-32 mb-4 bg-gradient-to-br from-surface-container-highest to-surface-dim rounded-lg p-2 shadow-inner">
+<img class="w-full h-full object-contain mix-blend-multiply" data-alt="A modern mid-range smartphone representing a Redmi Note 13 Pro, displaying a vibrant screen and an elegant back finish. Positioned on a minimalist pedestal under bright, diffused lighting, creating a high-fidelity technological aesthetic with soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBag2ZJt5mT4PWiS2VqBIo_bAU3h5nzTz-p0LWKnrxVSUlvq55VrhV4z21zbt8-MzXBoXa9tsd-gOdwJp5BWf1e5Vqpt5LtsZ7Ir-xjyMD0BlrZcI3E7y1FsYaO3eCxPaj5FHJJIaeqckIquUHQYHZMBeML4pYU5c7PItru6Zw7duDA6zoyVbFFVIt0WiHdo6VSnAe28FCV8j4T2_LKzl_FvjHY7p5MlwDEjfw3QHeru-1b-M4O-nlC"/>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Redmi Note 13 Pro</h3>
+<span class="font-label-sm text-label-sm bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full mb-4">Oferta</span>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Rendimiento accesible</p>
+<button class="w-full bg-surface-container-lowest text-primary-container border border-line font-label-md text-label-md py-3 rounded-lg hover:bg-pale hover:border-primary-container transition-all duration-300">
+                            Comprar $349
+                        </button>
+</div>
+</div>
+<!-- Table Rows -->
+<div class="flex flex-col">
+<!-- Pantalla Row -->
+<div class="grid grid-cols-4 border-b border-line hover:bg-surface-container-low/30 transition-colors duration-300">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">smartphone</span>
+<span class="font-label-md text-label-md text-on-surface">Pantalla</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">6.1" Super Retina XDR OLED</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">6.2" Dynamic AMOLED 2X, 120Hz</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">6.67" AMOLED, 120Hz</span>
+</div>
+</div>
+<!-- Cámara Principal Row -->
+<div class="grid grid-cols-4 border-b border-line hover:bg-surface-container-low/30 transition-colors duration-300">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">photo_camera</span>
+<span class="font-label-md text-label-md text-on-surface">Cámara Principal</span>
+</div>
+<div class="p-6 border-l border-line flex flex-col items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant font-bold">48 MP</span>
+<span class="font-label-sm text-label-sm text-muted">f/1.6, Dual Pixel PDAF</span>
+</div>
+<div class="p-6 border-l border-line flex flex-col items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant font-bold">50 MP</span>
+<span class="font-label-sm text-label-sm text-muted">f/1.8, Dual Pixel PDAF, OIS</span>
+</div>
+<div class="p-6 border-l border-line flex flex-col items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant font-bold">200 MP</span>
+<span class="font-label-sm text-label-sm text-muted">f/1.7, multi-directional PDAF, OIS</span>
+</div>
+</div>
+<!-- Almacenamiento Row -->
+<div class="grid grid-cols-4 border-b border-line hover:bg-surface-container-low/30 transition-colors duration-300">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">memory</span>
+<span class="font-label-md text-label-md text-on-surface">Almacenamiento Base</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">128 GB</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">128 GB</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">256 GB</span>
+</div>
+</div>
+<!-- Procesador Row (Extra for realism) -->
+<div class="grid grid-cols-4 hover:bg-surface-container-low/30 transition-colors duration-300">
+<div class="p-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">developer_board</span>
+<span class="font-label-md text-label-md text-on-surface">Procesador</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Apple A16 Bionic (4 nm)</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Exynos 2400 / Snapdragon 8 Gen 3</span>
+</div>
+<div class="p-6 border-l border-line flex items-center justify-center text-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Snapdragon 7s Gen 2 (4 nm)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Scroll Hint for Mobile -->
+<div class="md:hidden flex justify-center items-center gap-2 mt-4 text-muted">
+<span class="material-symbols-outlined text-sm">swipe</span>
+<span class="font-label-sm text-label-sm">Desliza para ver más</span>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface w-full py-12 border-t border-line dark:border-outline-variant flat no shadows mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
+<!-- Brand & Copyright -->
+<div class="col-span-1 md:col-span-2">
+<span class="font-display-hero text-headline-md text-primary dark:text-primary-fixed mb-4 block">MOBILEZONE</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mb-6 md:mb-0 max-w-xs">
+                    Tu destino premium para tecnología móvil y accesorios de última generación.
+                </p>
+<p class="font-body-md text-body-md text-muted mt-8">
+                    © 2026 Sergio Quiroga. Todos los derechos reservados.
+                </p>
+</div>
+<!-- Links -->
+<div class="col-span-1 flex flex-col gap-3">
+<h4 class="font-headline-md text-headline-md text-on-surface text-base mb-2">Navegación</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Inicio</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Smartphones</a>
+<a class="font-body-md text-body-md text-primary font-bold hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Comparar</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Ofertas</a>
+</div>
+<!-- Social/Contact Links -->
+<div class="col-span-1 flex flex-col gap-3 mt-8 md:mt-0">
+<h4 class="font-headline-md text-headline-md text-on-surface text-base mb-2">Conectar</h4>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Contacto</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Instagram</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="https://www.facebook.com/MobileZone.AR" target="_blank" rel="noopener noreferrer">Facebook</a>
+<a class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="https://wa.me/59162628578" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+</div>
+</div>
+</footer>
+<script src="mobilezone_shared.js"></script>
+</body></html>

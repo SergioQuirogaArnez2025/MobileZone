@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MOBILEZONE | Premium Smartphones</title>
+<meta name="description" content="Encuentra smartphones premium y tecnologia movil de ultima generacion en MobileZone."/>
+<link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<script defer src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        window.tailwind = window.tailwind || {}; tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#ffede6",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#00174b",
+                        "on-error": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary-container": "#eeefff",
+                        "surface-variant": "#e0e3e5",
+                        "on-surface": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary-container": "#00714d",
+                        "surface-tint": "#0053db",
+                        "secondary-container": "#6cf8bb",
+                        "tertiary-fixed": "#ffdbcd",
+                        "outline-variant": "#c3c6d7",
+                        "surface-dim": "#d8dadc",
+                        "on-background": "#191c1e",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "outline": "#737686",
+                        "on-secondary-fixed": "#002113",
+                        "inverse-surface": "#2d3133",
+                        "secondary": "#006c49",
+                        "surface-container-high": "#e6e8ea",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "background": "#f7f9fb",
+                        "primary-container": "#2563eb",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "surface-container": "#eceef0",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary": "#943700",
+                        "tertiary-container": "#bc4800",
+                        "surface-container-low": "#f2f4f6",
+                        "primary": "#004ac6",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#360f00",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed-variant": "#7d2d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "unit": "4px",
+                        "stack-lg": "48px",
+                        "stack-md": "24px",
+                        "margin-desktop": "64px",
+                        "stack-sm": "12px",
+                        "margin-mobile": "20px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "display-hero": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-hero": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+        }
+        .product-shadow {
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased pt-20">
+<!-- TopNavBar Component -->
+<nav class="bg-surface-container-lowest dark:bg-surface-dim font-body-md text-body-md fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex justify-between items-center h-20 px-margin-desktop max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                MOBILEZONE
+            </div>
+<!-- Desktop Nav -->
+<div class="hidden md:flex space-x-gutter items-center">
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-95 transition-transform" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-95 transition-transform" href="#smartphones">Smartphones</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-95 transition-transform" href="#compare">Compare</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-95 transition-transform" href="#offers">Offers</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors active:scale-95 transition-transform" href="#contact">Contact</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg hover-lift font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px]">forum</span>
+                    Contact us
+                </button>
+<button class="md:hidden text-on-surface">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-stack-lg md:py-24">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-lg items-center">
+<div class="space-y-stack-md">
+<h1 class="font-display-hero text-headline-lg-mobile md:text-display-hero text-on-background">Find the perfect smartphone for you</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                        Compare smartphones, check prices and specifications, and find the best deals in one place. Experience seamless performance and premium design.
+                    </p>
+<div class="flex flex-wrap gap-4 pt-4">
+<button class="bg-primary text-on-primary px-6 py-3 rounded-lg hover-lift font-label-sm text-label-sm">
+                            Explore smartphones
+                        </button>
+<button class="border-2 border-primary text-primary px-6 py-3 rounded-lg hover-lift font-label-sm text-label-sm">
+                            View offers
+                        </button>
+</div>
+</div>
+<div class="relative h-[400px] md:h-[600px] rounded-2xl overflow-hidden bg-surface-container-low product-shadow flex items-center justify-center p-8">
+<img class="w-full h-full object-contain hover-lift transition-transform duration-700 hover:scale-105" data-alt="A sleek composition of modern flagship smartphones arranged in a dynamic, staggered formation against a pristine, minimalist studio background. The lighting is soft and directional, highlighting the reflective glass backs and brushed titanium edges of the devices. The aesthetic is ultra-modern, high-tech retail, utilizing a sophisticated palette of deep slate, crisp white, and subtle metallic accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABEgRJ9PKYkL0lZJhdFrT-i-6OifMXTjvjNlSaluwDgfoAY0Eqtsoj1W1BzDyGhIC40HU-pVUrAwIG5w8ymx_DBnruFh1vhct0UNPyrmYQEyLtV430WPgs0P6EkHWvdW374AtXK5FrU5Laj_xsNcAzDDAn2G1Jm8bYgbIe-4U2BpMHekEh54ccXiipgdogOpUUhd_miZR2ll4zMpWhogo5aSWccGjPDItGQyPecLtiXsy9Vi45lc6y"/>
+</div>
+</div>
+</section>
+<!-- Featured Smartphones -->
+<section class="bg-surface-container-lowest py-stack-lg md:py-24" id="smartphones">
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="mb-stack-lg text-center">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-unit">Featured smartphones</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Explore our most popular models</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Product Card 1 -->
+<div class="bg-surface rounded-xl overflow-hidden product-shadow hover-lift group border border-outline-variant/30">
+<div class="aspect-square bg-surface-container-low p-8 relative flex items-center justify-center">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A high-resolution, front-facing product shot of the latest iPhone 15 in a sleek midnight colorway. The device is perfectly centered against a soft, light gray background, casting a subtle, elegant drop shadow. The screen displays a minimalist, colorful abstract wallpaper that complements the tech-forward, premium retail aesthetic of the page." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBABE_G7YgxBrUImGRzirGQBsrS7PjiCpFhfmxSAaGg9YI07JPQaDC9jPvLe3bnWlDj_BxRv3jzFV_kXL35FkL2VP_GXMlK4wQDb_MOtqkjk6Hs66iJF258qTkLB5lZbglqq7zsd-nLbYP_VvnfUkS0NlLrv3MCT4RRbZealmTHZn_nu3o2N_OnG8gSwTjfk5E9g2c7KYlfzIWORWJ26EisXsHcZmqrMc2ExiWbzbHUq2lO5yOmXRbq"/>
+</div>
+<div class="p-6 bg-surface-container-lowest border-t border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">iPhone 15</h3>
+<div class="space-y-2 mb-4">
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">sd_storage</span> 128GB Storage</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">photo_camera</span> 48MP Camera</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">smartphone</span> 6.1" Display</p>
+</div>
+<div class="flex justify-between items-center mt-6 pt-4 border-t border-outline-variant/30">
+<span class="font-headline-md text-headline-md text-primary">$699</span>
+<button class="text-primary font-label-sm text-label-sm hover:underline">View details</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface rounded-xl overflow-hidden product-shadow hover-lift group border border-outline-variant/30">
+<div class="aspect-square bg-surface-container-low p-8 relative flex items-center justify-center">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A detailed, premium product shot of the Samsung Galaxy S24 in a sophisticated titanium gray finish. The smartphone is angled slightly to show both the expansive screen and the refined camera module on the back. It rests on a pristine white surface with a soft, diffused light creating a minimal, high-end tech environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpoQtRF0Cfbpgtseg9ucxlrHwikaKbgeI9at0pEsbMaui3J4-txo_xLARf2NK6tRK-H92vfBmh0_W5oWLig67YUBoASC9kem1gi-Kgc3T_F8FPLooFl5Tb1BG1FD_24YuwDFTN_8LRPHKN4yLie2ezoI9OmKF7njH0noBiUAn3rmKO_jfkvgun1KbA7JuF9oE3UU2iauOU66741DfHcVKdERgYMPDjZLy9MBGpYbzPe29N10BRjrLT"/>
+</div>
+<div class="p-6 bg-surface-container-lowest border-t border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Samsung Galaxy S24</h3>
+<div class="space-y-2 mb-4">
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">sd_storage</span> 128GB Storage</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">photo_camera</span> 50MP Camera</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">smartphone</span> 6.2" Display</p>
+</div>
+<div class="flex justify-between items-center mt-6 pt-4 border-t border-outline-variant/30">
+<span class="font-headline-md text-headline-md text-primary">$649</span>
+<button class="text-primary font-label-sm text-label-sm hover:underline">View details</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface rounded-xl overflow-hidden product-shadow hover-lift group border border-outline-variant/30">
+<div class="aspect-square bg-surface-container-low p-8 relative flex items-center justify-center">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" data-alt="A clean, isolated product image of the Xiaomi Redmi Note 13 Pro in an elegant ice blue color. The device is shown standing vertically on a minimalist pedestal, emphasizing its slim profile and modern aesthetic. The lighting is high-key, creating a bright, crisp look perfectly aligned with a premium digital storefront." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIx2IKLWy2dGwLSaqzdgolUxXtoFaXHYzN2bXLqaHJhjn4t28QcMX50xcVtKSI1mbLtHlkTK8v71cpojQiWrNQC03_a5YLqi4kL_-aowH17bPkmP6fMv5byv_kyNMeHVF6sg1v5Kj8IJzkPDWr1e1Mg8yem4NSXnAC2RqMag78DksXADM5X_3_SQ_NR8h00sT5eFxCKeNlb5KKhWcqH81Eo-8KnmhJlKSis9oxZ2ODqwICeGiMPq_V"/>
+</div>
+<div class="p-6 bg-surface-container-lowest border-t border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-on-background mb-2">Redmi Note 13 Pro</h3>
+<div class="space-y-2 mb-4">
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">sd_storage</span> 256GB Storage</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">photo_camera</span> 200MP Camera</p>
+<p class="text-on-surface-variant font-body-sm text-sm flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">smartphone</span> 6.67" Display</p>
+</div>
+<div class="flex justify-between items-center mt-6 pt-4 border-t border-outline-variant/30">
+<span class="font-headline-md text-headline-md text-primary">$329</span>
+<button class="text-primary font-label-sm text-label-sm hover:underline">View details</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer Component -->
+<footer class="bg-surface-container-highest dark:bg-surface-dim font-body-sm text-body-sm w-full py-stack-lg border-t border-outline-variant dark:border-outline">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2 space-y-4">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                        MOBILEZONE
+                    </div>
+<p class="text-on-surface-variant dark:text-on-surface-variant max-w-md">
+                        © 2026 Sergio Quiroga. Todos los derechos reservados.
+                    </p>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-sm text-label-sm text-on-background uppercase tracking-wider">Links</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Smartphones</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Compare</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Offers</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="font-label-sm text-label-sm text-on-background uppercase tracking-wider">Legal</h4>
+<ul class="space-y-2">
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Store Locator</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Privacy Policy</a></li>
+<li><a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-all duration-200" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</main>
+<script src="mobilezone_shared.js"></script>
+</body></html>
