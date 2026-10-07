@@ -1,20 +1,9 @@
 import storeImage from '../../.docs/Legacy/png/png1.jpg'
+import { productPrices } from './prices.js'
+
+export { productPrices }
 
 export const storePhoto = storeImage
-
-export const productPrices = {
-  iphone15: 799,
-  iphone15Pro: 999,
-  iphone15ProMax: 1199,
-  galaxyS24: 799,
-  galaxyS24Ultra: 1299,
-  redmiNote13Pro: 349,
-  redmiNote13ProPlus: 499,
-  pixel8Pro: 899,
-  xiaomi14Ultra: 1499,
-  rogPhone8: 839,
-  pixelBudsPro: 137,
-}
 
 export const homeProducts = [
   {

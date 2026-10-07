@@ -9,6 +9,8 @@ npm ci
 npm run dev
 ```
 
+Ejecuta las pruebas de rutas y precios con `npm test`.
+
 Para generar y revisar la compilación de producción:
 
 ```sh

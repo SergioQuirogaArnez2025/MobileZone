@@ -131,6 +131,17 @@ export function SmartphonesPage({ initialSearch = '', onOpen, onAdd }) {
   )
 }
 
+export function NotFoundPage({ onNavigate }) {
+  return (
+    <main className="not-found-page page-wrap" aria-labelledby="not-found-title">
+      <p className="eyebrow">Error 404</p>
+      <h1 id="not-found-title">No encontramos esta página</h1>
+      <p>La dirección puede haber cambiado o no existe.</p>
+      <button className="button button--primary" type="button" onClick={() => onNavigate('/inicio')}>Volver al inicio</button>
+    </main>
+  )
+}
+
 export function ComparePage({ onAdd }) {
   return (
     <main className="compare-page page-wrap">

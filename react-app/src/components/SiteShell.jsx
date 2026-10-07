@@ -3,16 +3,20 @@ import { navItems } from '../data/catalog.js'
 
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '')
 
-function RouteLink({ path, onNavigate, children, className = '', ...props }) {
+function RouteLink({ path, onNavigate, children, className = '', onClick, target, download, rel, ...props }) {
   return (
     <a
       href={`${BASE_PATH}${path}`}
       className={className}
+      target={target}
+      download={download}
+      rel={rel}
       onClick={(event) => {
-        if (event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-          event.preventDefault()
-          onNavigate(path)
-        }
+        onClick?.(event)
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+        if (download !== undefined || (target && target !== '_self') || rel?.split(/\s+/).includes('external')) return
+        event.preventDefault()
+        onNavigate(path)
       }}
       {...props}
     >
