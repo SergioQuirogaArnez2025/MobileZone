@@ -235,6 +235,8 @@
 .empty-cart > .material-symbols-outlined { color: #8b9aaf; font-size: 48px; }
 .empty-cart h2 { margin: 12px 0 7px; font-size: 22px; }
 .empty-cart p { margin-bottom: 20px; }
+.status-toast { position: fixed; right: 24px; bottom: 24px; z-index: 70; display: flex; align-items: center; gap: 10px; width: max-content; max-width: min(420px,calc(100vw - 32px)); padding: 14px 18px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: white; background: #10233f; box-shadow: 0 16px 40px rgba(16,35,63,.24); font-size: 14px; font-weight: 600; animation: rise-in .22s both; }
+.status-toast .material-symbols-outlined { color: #6ee7a1; font-size: 21px; }
 
 .landing-hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding-block: 72px; }
 .landing-hero h1 { max-width: 13ch; }
@@ -349,6 +351,7 @@
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 480px) {
+  .status-toast { right: 16px; bottom: 16px; }
   .brand-mark { font-size: 17px; }
   .header-actions { gap: 2px; }
   .icon-button { width: 38px; height: 38px; }

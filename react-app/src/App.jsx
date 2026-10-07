@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { SiteShell } from './components/SiteShell.jsx'
 import ProductModal from './components/ProductModal.jsx'
+import { StatusToast } from './components/StatusToast.jsx'
 import { CartPage, ComparePage, ContactPage, HomePage, LandingPage, NotFoundPage, OffersPage, SmartphonesPage } from './pages/StorePages.jsx'
 import { getCanonicalProductPrice } from './data/prices.js'
 import { getPageTitle, getRouteLocation } from './routing.js'
@@ -36,8 +37,11 @@ function App() {
   const [location, setLocation] = useState(getLocation)
   const [cartItems, setCartItems] = useState(getInitialCart)
   const [modalProduct, setModalProduct] = useState(null)
+  const [cartNotice, setCartNotice] = useState(null)
   const [homeSearch, setHomeSearch] = useState('')
   const homeSearchRef = useRef(null)
+  const noticeTimerRef = useRef(null)
+  const noticeIdRef = useRef(0)
   const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
 
   useEffect(() => {
@@ -50,6 +54,8 @@ function App() {
     window.localStorage.setItem(CART_KEY, JSON.stringify(cartItems))
     window.localStorage.setItem(OLD_CART_COUNT_KEY, String(cartCount))
   }, [cartItems, cartCount])
+
+  useEffect(() => () => window.clearTimeout(noticeTimerRef.current), [])
 
   useEffect(() => {
     document.title = getPageTitle(location.path)
@@ -77,19 +83,34 @@ function App() {
     navigate(normalized ? `/smartphones?search=${encodeURIComponent(normalized)}` : '/smartphones')
   }
 
+  const announceCartChange = (message) => {
+    window.clearTimeout(noticeTimerRef.current)
+    setCartNotice({ id: ++noticeIdRef.current, message })
+    noticeTimerRef.current = window.setTimeout(() => setCartNotice(null), 2600)
+  }
+
   const addToCart = (product) => {
     setCartItems((current) => {
       const existing = current.find((item) => item.id === product.id)
       if (existing) return current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
       return [...current, { id: product.id, brand: product.brand, name: product.name, price: getCanonicalProductPrice(product.name, product.price), image: product.image || '', quantity: 1 }]
     })
+    announceCartChange(`${product.name} se agregó al carrito.`)
   }
 
   const changeQuantity = (id, quantity) => {
     setCartItems((current) => current.map((item) => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item))
   }
 
-  const removeFromCart = (id) => setCartItems((current) => current.filter((item) => item.id !== id))
+  const removeFromCart = (id) => {
+    const removed = cartItems.find((item) => item.id === id)
+    if (!removed) return
+    const isLastItem = cartItems.length === 1
+    setCartItems((current) => current.filter((item) => item.id !== id))
+    announceCartChange(isLastItem
+      ? `${removed.name} se quitó. El carrito quedó vacío.`
+      : `${removed.name} se quitó del carrito.`)
+  }
   const openHomeSearch = () => {
     homeSearchRef.current?.focus()
     homeSearchRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -105,7 +126,7 @@ function App() {
       page = <ComparePage onAdd={addToCart} />
       break
     case '/ofertas':
-      page = <OffersPage onAdd={addToCart} />
+      page = <OffersPage onOpen={showProduct} onAdd={addToCart} />
       break
     case '/contacto':
       page = <ContactPage />
@@ -127,6 +148,7 @@ function App() {
   return (
     <SiteShell currentPath={location.path} cartCount={cartCount} onNavigate={navigate} onFocusHomeSearch={openHomeSearch} onSearch={searchProducts}>
       {page}
+      <StatusToast key={cartNotice?.id || 'empty'} message={cartNotice?.message || ''} />
       <ProductModal product={modalProduct} onClose={() => setModalProduct(null)} onAdd={addToCart} />
     </SiteShell>
   )

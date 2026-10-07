@@ -1,4 +1,6 @@
 export function ProductCard({ product, onOpen, onAdd, favorite = false, onFavorite, offer = false }) {
+  const productImage = <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
+
   return (
     <article className="product-card">
       {(product.badge || product.previousPrice) && <span className={`product-badge${offer ? ' product-badge--sale' : ''}`}>{offer ? product.badge : product.badge || 'Oferta'}</span>}
@@ -7,9 +9,7 @@ export function ProductCard({ product, onOpen, onAdd, favorite = false, onFavori
           <span className="material-symbols-outlined" aria-hidden="true">{favorite ? 'favorite' : 'favorite_border'}</span>
         </button>
       )}
-      <button className="product-image" type="button" onClick={() => onOpen(product)} aria-label={`Ver detalles de ${product.name}`}>
-        <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
-      </button>
+      {onOpen ? <button className="product-image" type="button" onClick={() => onOpen(product)} aria-label={`Ver detalles de ${product.name}`}>{productImage}</button> : <div className="product-image">{productImage}</div>}
       <div className="product-card__body">
         <p className="product-brand">{product.brand}</p>
         <h3>{product.name}</h3>

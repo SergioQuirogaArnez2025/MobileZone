@@ -162,7 +162,7 @@ export function ComparePage({ onAdd }) {
   )
 }
 
-export function OffersPage({ onAdd }) {
+export function OffersPage({ onOpen, onAdd }) {
   const [category, setCategory] = useState('Todos')
   const [favorites, setFavorites] = useState(() => new Set())
   const [email, setEmail] = useState('')
@@ -186,7 +186,7 @@ export function OffersPage({ onAdd }) {
       </section>
       <section className="offers-section" id="ofertas">
         <div className="section-heading section-heading--row"><div><p className="eyebrow">Selección de temporada</p><h2>Ofertas Destacadas</h2><p>Los dispositivos más buscados con descuentos exclusivos.</p></div><div className="filter-chips" aria-label="Categoría de ofertas">{['Todos', 'Smartphones', 'Accesorios'].map((item) => <button className={`filter-chip${category === item ? ' is-active' : ''}`} type="button" aria-pressed={category === item} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div></div>
-        <ProductGrid products={visibleOffers} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} offer />
+        <ProductGrid products={visibleOffers} onOpen={onOpen} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} offer />
       </section>
       <section className="newsletter-section">
         <div className="newsletter-panel"><span className="material-symbols-outlined newsletter-icon" aria-hidden="true">mail</span><p className="eyebrow">Boletín MobileZone</p><h2>No te pierdas ninguna oferta</h2><p>Suscríbete a nuestra newsletter y recibe notificaciones anticipadas de nuestras promociones flash y descuentos exclusivos.</p>
@@ -257,7 +257,7 @@ export function CartPage({ items, onQuantityChange, onRemove, onNavigate }) {
         <section className="cart-items" aria-label="Artículos en el carrito">
           {items.length ? items.map((item) => <article className="cart-item" key={item.id}>
             <div className="cart-item__image"><img src={item.image} alt={item.name} /></div><div className="cart-item__main"><div className="cart-item__title"><div><h2>{item.name}</h2><p>{item.brand || 'MobileZone'}</p></div><button type="button" className="icon-button remove-button" aria-label={`Eliminar ${item.name}`} onClick={() => onRemove(item.id)}><span className="material-symbols-outlined" aria-hidden="true">delete</span></button></div><div className="cart-item__footer"><div className="quantity-control"><button type="button" aria-label={`Disminuir cantidad de ${item.name}`} onClick={() => onQuantityChange(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><span className="material-symbols-outlined" aria-hidden="true">remove</span></button><output aria-label="Cantidad">{item.quantity}</output><button type="button" aria-label={`Aumentar cantidad de ${item.name}`} onClick={() => onQuantityChange(item.id, item.quantity + 1)}><span className="material-symbols-outlined" aria-hidden="true">add</span></button></div><strong>{currency(item.price * item.quantity)}</strong></div></div>
-          </article>) : <div className="empty-cart"><span className="material-symbols-outlined" aria-hidden="true">shopping_bag</span><h2>Tu carrito está vacío</h2><p>Parece que aún no has añadido ningún producto.</p><button className="button button--primary" type="button" onClick={() => onNavigate('/smartphones')}>Explorar productos</button></div>}
+          </article>) : <div className="empty-cart" role="status" aria-live="polite"><span className="material-symbols-outlined" aria-hidden="true">shopping_bag</span><h2>Tu carrito está vacío</h2><p>Parece que aún no has añadido ningún producto.</p><button className="button button--primary" type="button" onClick={() => onNavigate('/smartphones')}>Explorar productos</button></div>}
         </section>
         <aside className="order-summary">
           <h2>Resumen del Pedido</h2><div className="summary-line"><span>Subtotal ({count} artículos)</span><strong>{currency(subtotal)}</strong></div><div className="summary-line"><span>Envío Estimado</span><strong className="text-success">Gratis</strong></div><div className="summary-line"><span>Impuestos</span><strong>Calculados en caja</strong></div><div className="summary-total"><span>Total</span><strong>{currency(subtotal)}</strong></div>
