@@ -1,3 +1,5 @@
+export const MAX_CART_QUANTITY = 99
+
 export function restoreCartItems(storedItems, products) {
   if (!Array.isArray(storedItems)) return []
 
@@ -5,7 +7,8 @@ export function restoreCartItems(storedItems, products) {
 
   return storedItems.flatMap((item) => {
     if (!item || typeof item.id !== 'string' || typeof item.quantity !== 'number'
-      || !Number.isInteger(item.quantity) || item.quantity < 1) return []
+      || !Number.isInteger(item.quantity) || item.quantity < 1
+      || item.quantity > MAX_CART_QUANTITY) return []
 
     const product = productsById.get(item.id)
     if (!product || !Number.isFinite(product.price) || product.price < 0) return []

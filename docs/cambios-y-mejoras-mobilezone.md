@@ -6,7 +6,7 @@ Este documento resume las correcciones realizadas a partir de la retroalimentaci
 
 | Tema | Antes | Mejora realizada | Estado |
 |---|---|---|---|
-| Restauración del carrito | Se confiaba en datos persistidos, incluidos precio, nombre y cantidades fraccionarias. | Se busca el producto por ID en el catálogo, se reconstruyen sus datos y se aceptan solo cantidades enteras positivas. | Implementado en React |
+| Restauración del carrito | Se confiaba en datos persistidos, incluidos precio, nombre y cantidades fraccionarias o desproporcionadas. | Se busca el producto por ID, se reconstruyen sus datos y se aceptan cantidades enteras entre 1 y 99. | Implementado en React |
 | Relación carrito-producto | El carrito guardaba una copia de varios datos del producto. | Se documentó un modelo relacional con Producto, Carrito e ItemCarrito, vinculados mediante claves foráneas. | Propuesta documentada; no hay base de datos |
 | Precio | El cliente podía presentar datos inconsistentes como si fueran correctos. | Se distingue que el precio es público, pero su integridad es crítica; una futura API deberá recalcular los totales. | Mitigación local implementada; garantía del servidor pendiente |
 | Privacidad de contacto | Se describía quién gestiona los mensajes, sin una vía para que el titular solicite cambios. | Se propusieron solicitudes verificadas de rectificación o eliminación, ejecutadas por personal autorizado. | Propuesta documentada; no está en la aplicación |
@@ -15,7 +15,7 @@ Este documento resume las correcciones realizadas a partir de la retroalimentaci
 
 ## 1. Carrito: producto canónico y cantidad válida
 
-La restauración del carrito ahora acepta un artículo solo cuando su identificador existe en el catálogo y su cantidad es un entero positivo. Los datos del producto no se toman del almacenamiento local: se reconstruyen desde el catálogo.
+La restauración del carrito ahora acepta un artículo solo cuando su identificador existe en el catálogo y su cantidad es un entero entre 1 y 99. El límite es por producto. Los datos del producto no se toman del almacenamiento local: se reconstruyen desde el catálogo.
 
 ```mermaid
 flowchart LR
@@ -33,8 +33,10 @@ flowchart LR
 | ID válido con `quantity: 0.5` | Se rechaza el artículo. |
 | ID válido, nombre desconocido, precio persistido `1`, cantidad `1` | Se restaura con los datos canónicos del catálogo; para `iphone-15-pro`, el precio es `999`. |
 | ID desconocido con cantidad `1` y precio alternativo | Se rechaza; no se utiliza el precio almacenado. |
+| ID válido con `quantity: 99` | Se acepta como máximo por producto. |
+| ID válido con `quantity: 100`, más otra línea válida | Se descarta solo la línea sobre el máximo y se conserva la otra. |
 
-La implementación está en [`restoreCartItems()`](../react-app/src/cart.js), se utiliza desde [`App.jsx`](../react-app/src/App.jsx) y está cubierta por [`cart.test.js`](../react-app/src/cart.test.js). Para que los IDs se comporten como una clave de producto en todas las páginas, se centralizaron las colecciones que pueden añadir productos al carrito en `cartProducts` dentro de [`catalog.js`](../react-app/src/data/catalog.js). La base de datos futura debería sustituir los IDs de presentación por un ID canónico y estable por producto.
+La implementación está en [`restoreCartItems()`](../react-app/src/cart.js), se utiliza desde [`App.jsx`](../react-app/src/App.jsx) y está cubierta por [`cart.test.js`](../react-app/src/cart.test.js). El botón para aumentar unidades se desactiva al llegar a 99, y las altas desde el catálogo también respetan ese tope. Para que los IDs se comporten como una clave de producto en todas las páginas, se centralizaron las colecciones que pueden añadir productos al carrito en `cartProducts` dentro de [`catalog.js`](../react-app/src/data/catalog.js). La base de datos futura debería sustituir los IDs de presentación por un ID canónico y estable por producto.
 
 ### Comparación conceptual
 
@@ -75,7 +77,7 @@ Este diagrama describe una propuesta relacional, no tablas existentes. El esquem
 |---|---|---|
 | `brand`, `name`, `image` | No; son datos públicos del catálogo. | Se pueden mostrar a visitantes, pero la edición del catálogo debe estar protegida. |
 | `price` | No necesariamente confidencial. | Su integridad comercial es crítica: el cliente puede mostrar una estimación, pero no fijar una cotización aceptada. |
-| `quantity` | No es un dato confidencial. | Debe ser un entero positivo y validarse tanto en el cliente como en el servidor. |
+| `quantity` | No es un dato confidencial. | Debe ser un entero entre 1 y 99, validado en el cliente, backend y esquema futuro. |
 | Nombre, correo y mensaje de contacto | Sí, son datos personales; el mensaje puede contener información privada. | Acceso limitado, verificación de titularidad y política de conservación. |
 
 La validación local evita algunos resúmenes incoherentes, pero no hace confiable al navegador. Antes de aceptar una compra, una futura API deberá recibir IDs y cantidades, verificar disponibilidad y volver a calcular el total utilizando los precios autorizados del servidor.
@@ -119,13 +121,13 @@ No se deben guardar claves secretas en el repositorio ni exponer una clave `serv
 
 ## 5. Validación y archivos de referencia
 
-En la validación del cambio del carrito y del cliente inicial de Supabase pasaron **9 pruebas** y la compilación de producción. Las pruebas verifican lógica local; no prueban autorización, API ni una base de datos remota.
+En la validación inicial del carrito y del cliente Supabase pasaron 9 pruebas. Con el límite de cantidad se añadieron 2 pruebas: una acepta 99 unidades y otra rechaza 100 conservando otras líneas válidas. Las **11 pruebas** y la compilación de producción pasan. Estas pruebas verifican lógica local; no prueban autorización, API ni una base de datos remota.
 
 | Recurso | Contenido |
 |---|---|
 | [`analisis-entidad-crud-seguridad.md`](./analisis-entidad-crud-seguridad.md) | Análisis de entidad, permisos, propuestas relacionales, privacidad y validación del carrito. |
 | [`cart.js`](../react-app/src/cart.js) | Restauración segura y reconstrucción del carrito desde el catálogo. |
-| [`cart.test.js`](../react-app/src/cart.test.js) | Casos de cantidad fraccionaria, datos manipulados e ID desconocido. |
+| [`cart.test.js`](../react-app/src/cart.test.js) | Casos de cantidad fraccionaria, máximo 99, exceso de límite sin perder otras líneas válidas, datos manipulados e ID desconocido. |
 | [`catalog.js`](../react-app/src/data/catalog.js) | Productos y colección común para identificar productos restaurables. |
 | [`supabase.js`](../react-app/src/lib/supabase.js) | Inicialización centralizada del cliente Supabase. |
 | [`SUPABASE_SETUP.md`](../SUPABASE_SETUP.md) | Guía de preparación, variables y pasos pendientes para Supabase Cloud. |

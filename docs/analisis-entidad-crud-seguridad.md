@@ -59,7 +59,7 @@ No es una tabla de base de datos. Es un objeto de `cartItems`, guardado bajo `mo
 | `name` | `string` (inferido) | Copia para presentación; al restaurar se toma del catálogo y no se usa como autoridad para el precio. | Sí para el catálogo actual. | No; dato público de catálogo. |
 | `price` | `number` (inferido) | Copia derivada del precio del producto; al restaurar se descarta el valor persistido y se usa el precio del catálogo. | Sí para los cálculos mostrados en el cliente. | No es confidencial; integridad comercial crítica. |
 | `image` | `string` (inferido) | Copia para presentación; al restaurar se toma del catálogo. | No; se sustituye por cadena vacía si falta. | No; dato público de catálogo. |
-| `quantity` | `number` (inferido) | Cantidad seleccionada para la línea. | Sí; ahora debe ser un entero positivo. | Preferencia de compra; validar también en el servidor. |
+| `quantity` | `number` (inferido) | Cantidad seleccionada para la línea. | Sí; debe ser un entero entre 1 y 99. | Preferencia de compra; validar también en el servidor. |
 
 El contador, subtotal y total se calculan; no son campos persistidos del Producto. El carrito no tiene entidad ni identificador de usuario: pertenece al almacenamiento del origen en ese perfil del navegador, no a un propietario autenticado. Los IDs de catálogo tampoco están normalizados globalmente entre superficies: por ejemplo, ofertas pueden definir un ID distinto para el mismo modelo. Por eso, una base de datos futura debe asignar al Producto un ID canónico y estable, compartido por catálogo, ofertas, comparación y landing. Referencias: [restauración](../react-app/src/App.jsx#L14), [persistencia](../react-app/src/App.jsx#L43), [alta](../react-app/src/App.jsx#L83) y [cálculos](../react-app/src/pages/StorePages.jsx#L248).
 
@@ -114,7 +114,7 @@ classDiagram
 
 ### Propuesta relacional para carrito, líneas y productos
 
-El diagrama recibido representa una **propuesta para una futura base de datos**, no la estructura que existe hoy en `localStorage`. En ese modelo, cada línea tiene su propia clave primaria y dos claves foráneas: una apunta al producto del catálogo y otra al carrito. La línea conserva cantidad, no una copia autoritativa del nombre, imagen o precio. La cantidad se valida como entero positivo antes de sumar; el precio se obtiene mediante la relación con Producto.
+El diagrama recibido representa una **propuesta para una futura base de datos**, no la estructura que existe hoy en `localStorage`. En ese modelo, cada línea tiene su propia clave primaria y dos claves foráneas: una apunta al producto del catálogo y otra al carrito. La línea conserva cantidad, no una copia autoritativa del nombre, imagen o precio. La cantidad se valida como entero entre 1 y 99 antes de sumar; el precio se obtiene mediante la relación con Producto.
 
 ```mermaid
 erDiagram
@@ -158,12 +158,12 @@ CREATE TABLE cart_items (
     id UUID PRIMARY KEY,
     product_id UUID NOT NULL REFERENCES products(id),
     cart_id UUID NOT NULL REFERENCES carts(id) ON DELETE CASCADE,
-    quantity INTEGER NOT NULL CHECK (quantity >= 1),
+    quantity INTEGER NOT NULL CHECK (quantity BETWEEN 1 AND 99),
     UNIQUE (cart_id, product_id)
 );
 ```
 
-Con el `JOIN` entre `cart_items.product_id` y `products.id`, el cálculo usa `official_price * quantity`; no debe confiar en un precio recibido o guardado por el cliente. La restricción `INTEGER` y `CHECK (quantity >= 1)` refuerza la validación en la base de datos, y el backend debe validar los mismos límites antes de calcular o aceptar una cotización. La relación hace posible que un producto figure en varias líneas de distintos carritos, mientras que cada línea pertenece a un carrito y corresponde a un producto. Si se requiere conservar el precio ofrecido en una compra, debe guardarse como parte de una cotización o pedido validado, no como precio canónico de la línea.
+Con el `JOIN` entre `cart_items.product_id` y `products.id`, el cálculo usa `official_price * quantity`; no debe confiar en un precio recibido o guardado por el cliente. La restricción `INTEGER` y `CHECK (quantity BETWEEN 1 AND 99)` refuerza la validación en la base de datos, y el backend debe validar los mismos límites antes de calcular o aceptar una cotización. El máximo propuesto es 99 unidades por producto: permite compras múltiples razonables sin aceptar cantidades desproporcionadas desde un carrito de tienda. La relación hace posible que un producto figure en varias líneas de distintos carritos, mientras que cada línea pertenece a un carrito y corresponde a un producto. Si se requiere conservar el precio ofrecido en una compra, debe guardarse como parte de una cotización o pedido validado, no como precio canónico de la línea.
 
 La aplicación actual no implementa estas tablas ni un carrito remoto. Como defensa local equivalente, `restoreCartItems()` contrasta el ID con el catálogo, reconstruye los campos desde el producto y descarta cantidades fraccionarias e IDs desconocidos. Esta comprobación mejora la coherencia de la interfaz, pero no sustituye las claves foráneas ni las validaciones del backend. La futura migración también debe normalizar los IDs actuales, que varían entre superficies, a una clave canónica de Producto.
 
@@ -235,7 +235,7 @@ La solicitud puede registrarse inicialmente como `verification_pending`; el corr
 |---|---|---|---|---|
 | Producto: identidad, marca, textos, imágenes y especificaciones | A | V, T, A, S | A | A |
 | Producto: precio y etiquetas de oferta | A | V, T, A, S | A | A, como parte de la baja del producto |
-| Artículo del carrito: selección y cantidad | T, en su carrito | T, en su carrito | T, solo cantidad y selección propias | T, en su carrito |
+| Artículo del carrito: selección y cantidad | T, en su carrito | T, en su carrito | T, solo cantidad entera de 1 a 99 y selección propias | T, en su carrito |
 | Precio y total del carrito | Servicio de cálculo confiable al agregar | T, en su carrito | Servicio de cálculo confiable al recalcular | Servicio de cálculo al retirar artículos |
 | Favoritos | T, propios | T, propios | —; cambiar selección equivale a crear o eliminar | T, propios |
 | Contacto: nombre, correo y mensaje | V o T, mediante envío | S; T solo tras verificar que la consulta es propia | S, solo para gestionar la atención y tramitar solicitudes verificadas | S, tras una solicitud verificada o al vencer el plazo de conservación |
@@ -251,7 +251,7 @@ La solicitud puede registrarse inicialmente como `verification_pending`; el corr
 | Área | Implementado en el cliente | Simulado o no implementado |
 |---|---|---|
 | Productos | Lectura, búsqueda, filtros, ordenación, detalle y comparación de datos fijos. | Crear, modificar o eliminar productos desde la aplicación; administración y persistencia remota ausentes. |
-| Carrito | Crear artículos, leerlos, actualizar cantidades enteras y eliminarlos; persistencia en `localStorage`. Al restaurar se reconstruyen los campos desde el ID del catálogo y se descartan IDs desconocidos y cantidades no enteras positivas. | Carrito por cuenta, validación de stock, pedido y pago no implementados. La persistencia local no es una base de datos del negocio. |
+| Carrito | Crear artículos, leerlos, actualizar cantidades enteras de 1 a 99 y eliminarlos; persistencia en `localStorage`. Al restaurar se reconstruyen los campos desde el ID del catálogo y se descartan IDs desconocidos y cantidades fuera del rango. | Carrito por cuenta, validación de stock, pedido y pago no implementados. La persistencia local no es una base de datos del negocio. |
 | Favoritos | Añadir y quitar identificadores de un `Set` en estado de página. | Persistencia y sincronización entre páginas o cuentas ausentes; no se modifica el Producto. |
 | Contacto | Captura en formulario, validación HTML y cambios de estado con temporizadores. | Envío y confirmación de recepción simulados; no se guardan mensajes en un servicio. La propuesta de almacenamiento y gestión de derechos está descrita arriba, pero aún no implementada. |
 | Suscripción | Correo en `useState`, validación HTML y mensaje de éxito. | Alta real en una lista de distribución, verificación, consulta y baja ausentes. |
@@ -265,7 +265,7 @@ La solicitud puede registrarse inicialmente como `verification_pending`; el corr
 
 **Por qué es indispensable.** El flujo termina preparando una solicitud de compra con importes calculados en el navegador. Quien controla ese navegador puede modificar el almacenamiento y los datos utilizados. Una confirmación comercial basada únicamente en ese texto podría aceptar importes inconsistentes.
 
-**Código relacionado.** `getInitialCart()` entrega los datos guardados a `restoreCartItems()` ([App.jsx](../react-app/src/App.jsx#L14)); esa función busca el producto por ID, valida que la cantidad sea un entero positivo y reconstruye nombre, marca, precio e imagen desde el catálogo ([cart.js](../react-app/src/cart.js#L1)). El resumen y el enlace a WhatsApp usan esos valores del carrito ([StorePages.jsx](../react-app/src/pages/StorePages.jsx#L248)).
+**Código relacionado.** `getInitialCart()` entrega los datos guardados a `restoreCartItems()` ([App.jsx](../react-app/src/App.jsx#L14)); esa función busca el producto por ID, valida que la cantidad sea un entero entre 1 y 99 y reconstruye nombre, marca, precio e imagen desde el catálogo ([cart.js](../react-app/src/cart.js#L1)). El alta y los controles de cantidad mantienen el mismo límite ([App.jsx](../react-app/src/App.jsx#L79), [StorePages.jsx](../react-app/src/pages/StorePages.jsx#L258)). El resumen y el enlace a WhatsApp usan esos valores del carrito ([StorePages.jsx](../react-app/src/pages/StorePages.jsx#L248)).
 
 **Estado actual: mejora local aplicada, garantía comercial todavía ausente.** El frontend ya no confía en el nombre, precio, marca o imagen guardados para restaurar el carrito: reconstruye los campos desde el identificador de un producto conocido y descarta cantidades fraccionarias o IDs desconocidos. Esto reduce resúmenes locales incoherentes, pero no convierte el navegador en una fuente confiable ni garantiza una cotización comercial.
 
@@ -280,6 +280,8 @@ Se actualizaron las pruebas de restauración para cubrir por separado los escena
 | ID válido, `quantity: 0.5` | Se rechaza; no se restaura el artículo. |
 | ID válido (`iphone-15-pro`), nombre desconocido, precio 1 y `quantity: 1` | Se restaura usando nombre, precio 999, marca e imagen del producto canónico en el catálogo; se ignoran los campos manipulados. |
 | ID no incluido en el catálogo y cantidad entera positiva | Se rechaza; no se utiliza un precio alternativo del almacenamiento. |
+| ID válido y `quantity: 99` | Se acepta; 99 es el máximo permitido por producto. |
+| ID válido y `quantity: 100`, junto a otro artículo válido | Se descarta solo la línea que supera el máximo; los demás artículos válidos se conservan. |
 
 La lógica está en `restoreCartItems()` ([cart.js](../react-app/src/cart.js#L1)) y se ejecuta al cargar el carrito ([App.jsx](../react-app/src/App.jsx#L14)). Los IDs de las distintas superficies, incluida la landing, se reúnen en `cartProducts` ([catalog.js](../react-app/src/data/catalog.js#L119)); las pruebas están en [cart.test.js](../react-app/src/cart.test.js#L1). Esto contrasta los datos restaurados con el catálogo local y mejora la coherencia del resumen, pero no constituye una cotización confiable del negocio: una futura API deberá volver a validar ID y cantidad y recalcular el total desde el catálogo del servidor.
 
@@ -291,7 +293,7 @@ El formulario de contacto solicita nombre, correo y mensaje; la suscripción sol
 
 El carrito guardado puede ser leído o modificado por otra persona que utilice el mismo perfil del navegador y origen; no hay aislamiento por identidad. Esto representa un riesgo de privacidad en equipos compartidos, sin demostrar acceso remoto a carritos ajenos. Al abrir el enlace de WhatsApp se incluyen selección e importes en la URL del servicio externo; no se incluyen los campos del formulario de contacto. No deben incorporarse credenciales ni datos privados adicionales a ese texto.
 
-Las pruebas revisan rutas, precios conocidos y restauración frente a cantidades fraccionarias, IDs desconocidos y datos de producto manipulados ([routing.test.js](../react-app/src/routing.test.js#L1), [cart.test.js](../react-app/src/cart.test.js#L1)); no acreditan autorización, aislamiento de usuarios ni seguridad de una futura API. El análisis no incluye una auditoría de infraestructura, dependencias, servicios externos o procesos del asesor.
+Las pruebas revisan rutas, precios conocidos y restauración frente a cantidades fraccionarias o superiores a 99, IDs desconocidos y datos de producto manipulados ([routing.test.js](../react-app/src/routing.test.js#L1), [cart.test.js](../react-app/src/cart.test.js#L1)); no acreditan autorización, aislamiento de usuarios ni seguridad de una futura API. El análisis no incluye una auditoría de infraestructura, dependencias, servicios externos o procesos del asesor.
 
 ## 7. Conclusión
 

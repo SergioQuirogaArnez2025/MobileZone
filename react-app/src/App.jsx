@@ -4,7 +4,7 @@ import ProductModal from './components/ProductModal.jsx'
 import { StatusToast } from './components/StatusToast.jsx'
 import { CartPage, ComparePage, ContactPage, HomePage, LandingPage, NotFoundPage, OffersPage, SmartphonesPage } from './pages/StorePages.jsx'
 import { cartProducts } from './data/catalog.js'
-import { restoreCartItems } from './cart.js'
+import { MAX_CART_QUANTITY, restoreCartItems } from './cart.js'
 import { getPageTitle, getRouteLocation } from './routing.js'
 import './App.css'
 
@@ -80,16 +80,26 @@ function App() {
   }
 
   const addToCart = (product) => {
+    const existing = cartItems.find((item) => item.id === product.id)
+    if (existing?.quantity >= MAX_CART_QUANTITY) {
+      announceCartChange(`El máximo permitido por producto es ${MAX_CART_QUANTITY} unidades.`)
+      return
+    }
+
     setCartItems((current) => {
       const existing = current.find((item) => item.id === product.id)
-      if (existing) return current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
+      if (existing) return current.map((item) => item.id === product.id
+        ? { ...item, quantity: Math.min(MAX_CART_QUANTITY, item.quantity + 1) }
+        : item)
       return [...current, { id: product.id, brand: product.brand, name: product.name, price: product.price, image: product.image || '', quantity: 1 }]
     })
     announceCartChange(`${product.name} se agregó al carrito.`)
   }
 
   const changeQuantity = (id, quantity) => {
-    setCartItems((current) => current.map((item) => item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item))
+    setCartItems((current) => current.map((item) => item.id === id
+      ? { ...item, quantity: Math.min(MAX_CART_QUANTITY, Math.max(1, quantity)) }
+      : item))
   }
 
   const removeFromCart = (id) => {
