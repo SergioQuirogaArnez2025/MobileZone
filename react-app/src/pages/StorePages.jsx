@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { catalogProducts, comparisonProducts, comparisonSpecs, homeProducts, offerProducts, productPrices, storePhoto } from '../data/catalog.js'
+import { catalogProducts, comparisonProducts, comparisonSpecs, homeProducts, landingProducts, offerProducts, productPrices, storePhoto } from '../data/catalog.js'
 import { formatPrice } from '../components/ProductCard.jsx'
 import { ProductCard } from '../components/ProductCard.jsx'
 
@@ -269,11 +269,6 @@ export function CartPage({ items, onQuantityChange, onRemove, onNavigate }) {
 }
 
 export function LandingPage({ onOpen, onAdd, onNavigate }) {
-  const landingProducts = [
-    { ...comparisonProducts[0], id: 'iphone-15-landing', description: '128GB Storage · 48MP Camera · 6.1" Display' },
-    { ...comparisonProducts[1], id: 'galaxy-s24-landing', name: 'Samsung Galaxy S24', description: '128GB Storage · 50MP Camera · 6.2" Display' },
-    { ...homeProducts[2], id: 'redmi-note-13-landing', name: 'Redmi Note 13 Pro', price: productPrices.redmiNote13Pro, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIx2IKLWy2dGwLSaqzdgolUxXtoFaXHYzN2bXLqaHJhjn4t28QcMX50xcVtKSI1mbLtHlkTK8v71cpojQiWrNQC03_a5YLqi4kL_-aowH17bPkmP6fMv5byv_kyNMeHVF6sg1v5Kj8IJzkPDWr1e1Mg8yem4NSXnAC2RqMag78DksXADM5X_3_SQ_NR8h00sT5eFxCKeNlb5KKhWcqH81Eo-8KnmhJlKSis9oxZ2ODqwICeGiMPq_V', description: '256GB Storage · 200MP Camera · 6.67" Display' },
-  ]
   return (
     <main className="landing-page">
       <section className="landing-hero page-wrap"><div><p className="eyebrow">MobileZone Premium</p><h1>Find the perfect smartphone for you</h1><p>Compare smartphones, check prices and specifications, and find the best deals in one place. Experience seamless performance and premium design.</p><div className="hero-actions"><button className="button button--primary" type="button" onClick={() => onNavigate('/smartphones')}>Explore smartphones</button><button className="button button--secondary" type="button" onClick={() => onNavigate('/ofertas')}>View offers</button></div></div><div className="landing-hero__visual"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuABEgRJ9PKYkL0lZJhdFrT-i-6OifMXTjvjNlSaluwDgfoAY0Eqtsoj1W1BzDyGhIC40HU-pVUrAwIG5w8ymx_DBnruFh1vhct0UNPyrmYQEyLtV430WPgs0P6EkHWvdW374AtXK5FrU5Laj_xsNcAzDDAn2G1Jm8bYgbIe-4U2BpMHekEh54ccXiipgdogOpUUhd_miZR2ll4zMpWhogo5aSWccGjPDItGQyPecLtiXsy9Vi45lc6y" alt="Selección de smartphones premium" /></div></section>

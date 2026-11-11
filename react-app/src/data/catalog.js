@@ -113,6 +113,20 @@ export const comparisonProducts = [
   },
 ]
 
+export const landingProducts = [
+  { ...comparisonProducts[0], id: 'iphone-15-landing', description: '128GB Storage · 48MP Camera · 6.1" Display' },
+  { ...comparisonProducts[1], id: 'galaxy-s24-landing', name: 'Samsung Galaxy S24', description: '128GB Storage · 50MP Camera · 6.2" Display' },
+  { ...homeProducts[2], id: 'redmi-note-13-landing', name: 'Redmi Note 13 Pro', price: productPrices.redmiNote13Pro, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAIx2IKLWy2dGwLSaqzdgolUxXtoFaXHYzN2bXLqaHJhjn4t28QcMX50xcVtKSI1mbLtHlkTK8v71cpojQiWrNQC03_a5YLqi4kL_-aowH17bPkmP6fMv5byv_kyNMeHVF6sg1v5Kj8IJzkPDWr1e1Mg8yem4NSXnAC2RqMag78DksXADM5X_3_SQ_NR8h00sT5eFxCKeNlb5KKhWcqH81Eo-8KnmhJlKSis9oxZ2ODqwICeGiMPq_V', description: '256GB Storage · 200MP Camera · 6.67" Display' },
+]
+
+export const cartProducts = [
+  ...homeProducts,
+  ...catalogProducts,
+  ...offerProducts,
+  ...comparisonProducts,
+  ...landingProducts,
+]
+
 export const comparisonSpecs = [
   { label: 'Pantalla', icon: 'smartphone', values: ['6.1" Super Retina XDR OLED', '6.2" Dynamic AMOLED 2X, 120Hz', '6.67" AMOLED, 120Hz'] },
   { label: 'Cámara Principal', icon: 'photo_camera', values: [['48 MP', 'f/1.6, Dual Pixel PDAF'], ['50 MP', 'f/1.8, Dual Pixel PDAF, OIS'], ['200 MP', 'f/1.7, multi-directional PDAF, OIS']] },

@@ -3,12 +3,12 @@ import { SiteShell } from './components/SiteShell.jsx'
 import ProductModal from './components/ProductModal.jsx'
 import { StatusToast } from './components/StatusToast.jsx'
 import { CartPage, ComparePage, ContactPage, HomePage, LandingPage, NotFoundPage, OffersPage, SmartphonesPage } from './pages/StorePages.jsx'
-import { getCanonicalProductPrice } from './data/prices.js'
+import { cartProducts } from './data/catalog.js'
+import { restoreCartItems } from './cart.js'
 import { getPageTitle, getRouteLocation } from './routing.js'
 import './App.css'
 
 const CART_KEY = 'mobilezone-cart-items'
-const OLD_CART_COUNT_KEY = 'mobilezone-cart-count'
 const BASE_PATH = import.meta.env.BASE_URL.replace(/\/$/, '')
 
 function getLocation() {
@@ -18,19 +18,10 @@ function getLocation() {
 function getInitialCart() {
   try {
     const stored = JSON.parse(window.localStorage.getItem(CART_KEY) || '[]')
-    if (Array.isArray(stored) && stored.length) return stored
-      .filter((item) => item && item.id && Number.isFinite(Number(item.quantity)) && Number(item.quantity) > 0)
-      .map((item) => ({
-        ...item,
-        price: getCanonicalProductPrice(item.name, item.price),
-        quantity: Number(item.quantity),
-      }))
-      .filter((item) => Number.isFinite(item.price) && item.price >= 0)
+    return restoreCartItems(stored, cartProducts)
   } catch {
     return []
   }
-  const oldCount = Number(window.localStorage.getItem(OLD_CART_COUNT_KEY) || 0)
-  return oldCount > 0 ? [{ id: 'legacy-selected-items', name: 'Productos seleccionados', price: 565.67, quantity: oldCount }] : []
 }
 
 function App() {
@@ -52,7 +43,6 @@ function App() {
 
   useEffect(() => {
     window.localStorage.setItem(CART_KEY, JSON.stringify(cartItems))
-    window.localStorage.setItem(OLD_CART_COUNT_KEY, String(cartCount))
   }, [cartItems, cartCount])
 
   useEffect(() => () => window.clearTimeout(noticeTimerRef.current), [])
@@ -93,7 +83,7 @@ function App() {
     setCartItems((current) => {
       const existing = current.find((item) => item.id === product.id)
       if (existing) return current.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
-      return [...current, { id: product.id, brand: product.brand, name: product.name, price: getCanonicalProductPrice(product.name, product.price), image: product.image || '', quantity: 1 }]
+      return [...current, { id: product.id, brand: product.brand, name: product.name, price: product.price, image: product.image || '', quantity: 1 }]
     })
     announceCartChange(`${product.name} se agregó al carrito.`)
   }
