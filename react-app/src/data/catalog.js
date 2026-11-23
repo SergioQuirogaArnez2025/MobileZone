@@ -140,4 +140,5 @@ export const navItems = [
   { path: '/comparar', label: 'Comparar' },
   { path: '/ofertas', label: 'Ofertas' },
   { path: '/contacto', label: 'Contacto' },
+  { path: '/cuenta', label: 'Mi cuenta' },
 ]

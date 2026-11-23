@@ -3,18 +3,27 @@ import { catalogProducts, comparisonProducts, comparisonSpecs, homeProducts, lan
 import { formatPrice } from '../components/ProductCard.jsx'
 import { ProductCard } from '../components/ProductCard.jsx'
 import { MAX_CART_QUANTITY } from '../cart.js'
+import { getSupabaseClient, isSupabaseConfigured } from '../lib/supabase.js'
 
 const currency = (value) => formatPrice(value, true)
 
-function ProductGrid({ products, onOpen, onAdd, favorites, onFavorite, offer = false }) {
+function fromRemoteCatalog(product, remoteProducts) {
+  const remoteProduct = remoteProducts?.get(product.id)
+  return remoteProduct ? { ...product, ...remoteProduct, id: product.id } : product
+}
+
+function ProductGrid({ products, remoteProducts, onOpen, onAdd, favorites, onFavorite, offer = false }) {
   return (
     <div className="product-grid">
-      {products.map((product) => <ProductCard key={product.id} product={product} onOpen={onOpen} onAdd={onAdd} favorite={favorites?.has(product.id)} onFavorite={onFavorite} offer={offer} />)}
+      {products.map((product) => {
+        const catalogProduct = fromRemoteCatalog(product, remoteProducts)
+        return <ProductCard key={product.id} product={catalogProduct} onOpen={onOpen} onAdd={onAdd} favorite={favorites?.has(product.id)} onFavorite={onFavorite} offer={offer} />
+      })}
     </div>
   )
 }
 
-export function HomePage({ searchRef, searchValue, setSearchValue, onOpen, onAdd, onNavigate }) {
+export function HomePage({ searchRef, searchValue, setSearchValue, remoteProducts, onOpen, onAdd, onNavigate }) {
   const [brand, setBrand] = useState('all')
   const brands = [
     { id: 'all', label: 'Todas' },
@@ -64,14 +73,14 @@ export function HomePage({ searchRef, searchValue, setSearchValue, onOpen, onAdd
           <p className="eyebrow">Selección MobileZone</p>
           <h2>Catálogo Premium</h2>
         </div>
-        {filteredProducts.length ? <ProductGrid products={filteredProducts} onOpen={onOpen} onAdd={onAdd} /> : <p className="empty-results">No encontramos productos que coincidan con la búsqueda.</p>}
+        {filteredProducts.length ? <ProductGrid products={filteredProducts} remoteProducts={remoteProducts} onOpen={onOpen} onAdd={onAdd} /> : <p className="empty-results">No encontramos productos que coincidan con la búsqueda.</p>}
         <div className="section-tail"><button className="button button--secondary" type="button" onClick={() => onNavigate('/smartphones')}>Ver catálogo completo<span className="material-symbols-outlined" aria-hidden="true">arrow_forward</span></button></div>
       </section>
     </main>
   )
 }
 
-export function SmartphonesPage({ initialSearch = '', onOpen, onAdd }) {
+export function SmartphonesPage({ initialSearch = '', remoteProducts, onOpen, onAdd }) {
   const [query, setQuery] = useState(initialSearch)
   const [brands, setBrands] = useState(() => initialSearch ? [] : ['Apple', 'Samsung'])
   const [maxPrice, setMaxPrice] = useState(1500)
@@ -84,7 +93,7 @@ export function SmartphonesPage({ initialSearch = '', onOpen, onAdd }) {
   }, [initialSearch])
 
   const products = useMemo(() => {
-    const matches = catalogProducts.filter((product) => {
+    const matches = catalogProducts.map((product) => fromRemoteCatalog(product, remoteProducts)).filter((product) => {
       const matchesBrand = brands.length === 0 || brands.includes(product.brand)
       const matchesPrice = product.price <= maxPrice
       const matchesSearch = `${product.name} ${product.brand} ${product.description}`.toLowerCase().includes(query.toLowerCase())
@@ -94,7 +103,7 @@ export function SmartphonesPage({ initialSearch = '', onOpen, onAdd }) {
     if (sort === 'high') return [...matches].sort((a, b) => b.price - a.price)
     if (sort === 'newest') return [...matches].reverse()
     return matches
-  }, [brands, maxPrice, query, sort])
+  }, [brands, maxPrice, query, remoteProducts, sort])
 
   const toggleBrand = (brand) => setBrands((current) => current.includes(brand) ? current.filter((item) => item !== brand) : [...current, brand])
   const toggleFavorite = (id) => setFavorites((current) => { const next = new Set(current); next.has(id) ? next.delete(id) : next.add(id); return next })
@@ -126,7 +135,7 @@ export function SmartphonesPage({ initialSearch = '', onOpen, onAdd }) {
             </select>
           </label>
         </div>
-        {products.length ? <ProductGrid products={products} onOpen={onOpen} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} /> : <p className="empty-results">No hay productos con esos filtros. <button type="button" className="text-button" onClick={clearFilters}>Limpiar filtros</button></p>}
+        {products.length ? <ProductGrid products={products} remoteProducts={remoteProducts} onOpen={onOpen} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} /> : <p className="empty-results">No hay productos con esos filtros. <button type="button" className="text-button" onClick={clearFilters}>Limpiar filtros</button></p>}
       </section>
     </main>
   )
@@ -143,15 +152,15 @@ export function NotFoundPage({ onNavigate }) {
   )
 }
 
-export function ComparePage({ onAdd }) {
+export function ComparePage({ remoteProducts, onAdd }) {
   return (
     <main className="compare-page page-wrap">
       <div className="page-intro"><p className="eyebrow">Elige con claridad</p><h1>Compara de un vistazo</h1><p>Analiza las especificaciones técnicas lado a lado y encuentra el smartphone perfecto para tus necesidades. Nuestra selección premium, simplificada para ti.</p></div>
       <div className="comparison-scroll" role="region" aria-label="Tabla comparativa de smartphones" tabIndex="0">
         <div className="comparison-table">
-          <div className="comparison-row comparison-row--products"><div className="comparison-label">Características</div>{comparisonProducts.map((product) => <div className="comparison-product" key={product.id}>
+          <div className="comparison-row comparison-row--products"><div className="comparison-label">Características</div>{comparisonProducts.map((item) => { const product = fromRemoteCatalog(item, remoteProducts); return <div className="comparison-product" key={product.id}>
             <div className="comparison-product__image"><img src={product.image} alt={product.name} loading="lazy" /></div><h2>{product.name}</h2><span className="comparison-tag">{product.badge}</span><p>{product.tagline}</p><strong>{formatPrice(product.price)}</strong><button className="button button--secondary button--wide" type="button" onClick={() => onAdd(product)}>Comprar {formatPrice(product.price)}</button>
-          </div>)}</div>
+          </div>})}</div>
           {comparisonSpecs.map((spec, rowIndex) => <div className="comparison-row" key={spec.label}>
             <div className="comparison-label"><span className="material-symbols-outlined" aria-hidden="true">{spec.icon}</span>{spec.label}</div>
             {spec.values.map((value, index) => <div className="comparison-value" key={`${rowIndex}-${index}`}>{Array.isArray(value) ? <><strong>{value[0]}</strong><small>{value[1]}</small></> : value}</div>)}
@@ -163,7 +172,7 @@ export function ComparePage({ onAdd }) {
   )
 }
 
-export function OffersPage({ onOpen, onAdd }) {
+export function OffersPage({ remoteProducts, onOpen, onAdd }) {
   const [category, setCategory] = useState('Todos')
   const [favorites, setFavorites] = useState(() => new Set())
   const [email, setEmail] = useState('')
@@ -187,7 +196,7 @@ export function OffersPage({ onOpen, onAdd }) {
       </section>
       <section className="offers-section" id="ofertas">
         <div className="section-heading section-heading--row"><div><p className="eyebrow">Selección de temporada</p><h2>Ofertas Destacadas</h2><p>Los dispositivos más buscados con descuentos exclusivos.</p></div><div className="filter-chips" aria-label="Categoría de ofertas">{['Todos', 'Smartphones', 'Accesorios'].map((item) => <button className={`filter-chip${category === item ? ' is-active' : ''}`} type="button" aria-pressed={category === item} key={item} onClick={() => setCategory(item)}>{item}</button>)}</div></div>
-        <ProductGrid products={visibleOffers} onOpen={onOpen} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} offer />
+        <ProductGrid products={visibleOffers} remoteProducts={remoteProducts} onOpen={onOpen} onAdd={onAdd} favorites={favorites} onFavorite={toggleFavorite} offer />
       </section>
       <section className="newsletter-section">
         <div className="newsletter-panel"><span className="material-symbols-outlined newsletter-icon" aria-hidden="true">mail</span><p className="eyebrow">Boletín MobileZone</p><h2>No te pierdas ninguna oferta</h2><p>Suscríbete a nuestra newsletter y recibe notificaciones anticipadas de nuestras promociones flash y descuentos exclusivos.</p>
@@ -246,7 +255,7 @@ export function ContactPage() {
   )
 }
 
-export function CartPage({ items, onQuantityChange, onRemove, onNavigate }) {
+export function CartPage({ items, isAuthenticated, loading, error, onQuantityChange, onRemove, onNavigate }) {
   const subtotal = items.reduce((sum, item) => sum + item.quantity * item.price, 0)
   const count = items.reduce((sum, item) => sum + item.quantity, 0)
   const whatsappMessage = encodeURIComponent(`Hola, quiero coordinar esta compra:\n${items.map((item) => `${item.name} x${item.quantity} - ${currency(item.price * item.quantity)}`).join('\n')}\nTotal: ${currency(subtotal)}`)
@@ -256,9 +265,11 @@ export function CartPage({ items, onQuantityChange, onRemove, onNavigate }) {
       <div className="cart-heading"><p className="eyebrow">Tu selección</p><h1>Tu Carrito</h1><p>Revisa los artículos seleccionados antes de finalizar tu compra.</p></div>
       <div className="cart-layout">
         <section className="cart-items" aria-label="Artículos en el carrito">
-          {items.length ? items.map((item) => <article className="cart-item" key={item.id}>
+          {error && <p className="data-error" role="alert">{error}</p>}
+          {loading ? <p className="data-loading" role="status">Cargando tu carrito...</p>
+            : items.length ? items.map((item) => <article className="cart-item" key={item.id}>
             <div className="cart-item__image"><img src={item.image} alt={item.name} /></div><div className="cart-item__main"><div className="cart-item__title"><div><h2>{item.name}</h2><p>{item.brand || 'MobileZone'}</p></div><button type="button" className="icon-button remove-button" aria-label={`Eliminar ${item.name}`} onClick={() => onRemove(item.id)}><span className="material-symbols-outlined" aria-hidden="true">delete</span></button></div><div className="cart-item__footer"><div className="quantity-control"><button type="button" aria-label={`Disminuir cantidad de ${item.name}`} onClick={() => onQuantityChange(item.id, item.quantity - 1)} disabled={item.quantity <= 1}><span className="material-symbols-outlined" aria-hidden="true">remove</span></button><output aria-label="Cantidad">{item.quantity}</output><button type="button" aria-label={`Aumentar cantidad de ${item.name}`} onClick={() => onQuantityChange(item.id, item.quantity + 1)} disabled={item.quantity >= MAX_CART_QUANTITY}><span className="material-symbols-outlined" aria-hidden="true">add</span></button></div><strong>{currency(item.price * item.quantity)}</strong></div></div>
-          </article>) : <div className="empty-cart" role="status" aria-live="polite"><span className="material-symbols-outlined" aria-hidden="true">shopping_bag</span><h2>Tu carrito está vacío</h2><p>Parece que aún no has añadido ningún producto.</p><button className="button button--primary" type="button" onClick={() => onNavigate('/smartphones')}>Explorar productos</button></div>}
+          </article>) : <div className="empty-cart" role="status" aria-live="polite"><span className="material-symbols-outlined" aria-hidden="true">shopping_bag</span><h2>{isAuthenticated ? 'Tu carrito está vacío' : 'Inicia sesión para ver tu carrito'}</h2><p>{isAuthenticated ? 'Parece que aún no has añadido ningún producto.' : 'Cada carrito está vinculado a su cuenta y no es visible para otras personas.'}</p><button className="button button--primary" type="button" onClick={() => onNavigate(isAuthenticated ? '/smartphones' : '/cuenta')}>{isAuthenticated ? 'Explorar productos' : 'Iniciar sesión'}</button></div>}
         </section>
         <aside className="order-summary">
           <h2>Resumen del Pedido</h2><div className="summary-line"><span>Subtotal ({count} artículos)</span><strong>{currency(subtotal)}</strong></div><div className="summary-line"><span>Envío Estimado</span><strong className="text-success">Gratis</strong></div><div className="summary-line"><span>Impuestos</span><strong>Calculados en caja</strong></div><div className="summary-total"><span>Total</span><strong>{currency(subtotal)}</strong></div>
@@ -269,11 +280,87 @@ export function CartPage({ items, onQuantityChange, onRemove, onNavigate }) {
   )
 }
 
-export function LandingPage({ onOpen, onAdd, onNavigate }) {
+export function LandingPage({ remoteProducts, onOpen, onAdd, onNavigate }) {
   return (
     <main className="landing-page">
       <section className="landing-hero page-wrap"><div><p className="eyebrow">MobileZone Premium</p><h1>Find the perfect smartphone for you</h1><p>Compare smartphones, check prices and specifications, and find the best deals in one place. Experience seamless performance and premium design.</p><div className="hero-actions"><button className="button button--primary" type="button" onClick={() => onNavigate('/smartphones')}>Explore smartphones</button><button className="button button--secondary" type="button" onClick={() => onNavigate('/ofertas')}>View offers</button></div></div><div className="landing-hero__visual"><img src="https://lh3.googleusercontent.com/aida-public/AB6AXuABEgRJ9PKYkL0lZJhdFrT-i-6OifMXTjvjNlSaluwDgfoAY0Eqtsoj1W1BzDyGhIC40HU-pVUrAwIG5w8ymx_DBnruFh1vhct0UNPyrmYQEyLtV430WPgs0P6EkHWvdW374AtXK5FrU5Laj_xsNcAzDDAn2G1Jm8bYgbIe-4U2BpMHekEh54ccXiipgdogOpUUhd_miZR2ll4zMpWhogo5aSWccGjPDItGQyPecLtiXsy9Vi45lc6y" alt="Selección de smartphones premium" /></div></section>
-      <section className="content-section"><div className="section-heading section-heading--center"><p className="eyebrow">Curated for you</p><h2>Featured smartphones</h2><p>Explore our most popular models</p></div><ProductGrid products={landingProducts} onOpen={onOpen} onAdd={onAdd} /></section>
+      <section className="content-section"><div className="section-heading section-heading--center"><p className="eyebrow">Curated for you</p><h2>Featured smartphones</h2><p>Explore our most popular models</p></div><ProductGrid products={landingProducts} remoteProducts={remoteProducts} onOpen={onOpen} onAdd={onAdd} /></section>
+    </main>
+  )
+}
+
+export function AccountPage({ session, onSessionChange }) {
+  const [mode, setMode] = useState('sign-in')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [feedback, setFeedback] = useState('')
+  const [error, setError] = useState('')
+
+  const submit = async (event) => {
+    event.preventDefault()
+    if (!event.currentTarget.reportValidity()) return
+
+    setLoading(true)
+    setFeedback('')
+    setError('')
+    try {
+      if (!isSupabaseConfigured()) throw new Error('Supabase aún no está configurado. Completa react-app/.env.local con la URL y la clave publicable del proyecto.')
+      const client = getSupabaseClient()
+      if (mode === 'sign-up') {
+        const { data, error: authError } = await client.auth.signUp({ email, password })
+        if (authError) throw authError
+        if (data.session) onSessionChange(data.session)
+        else setFeedback('Revisa tu correo para confirmar la cuenta antes de iniciar sesión.')
+      } else {
+        const { data, error: authError } = await client.auth.signInWithPassword({ email, password })
+        if (authError) throw authError
+        onSessionChange(data.session)
+      }
+    } catch (authError) {
+      setError(authError.message || 'No se pudo completar la autenticación.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const signOut = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const { error: authError } = await getSupabaseClient().auth.signOut()
+      if (authError) throw authError
+      onSessionChange(null)
+    } catch (authError) {
+      setError(authError.message || 'No se pudo cerrar la sesión.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <main className="account-page page-wrap">
+      <section className="account-panel">
+        <p className="eyebrow">Cuenta MobileZone</p>
+        <h1>{session ? 'Tu cuenta' : mode === 'sign-up' ? 'Crear cuenta' : 'Iniciar sesión'}</h1>
+        {session ? <>
+          <p>Sesión iniciada como <strong>{session.user.email}</strong>.</p>
+          <p>Tu carrito remoto está protegido y solo es accesible desde esta cuenta.</p>
+          <button className="button button--secondary" type="button" onClick={signOut} disabled={loading}>{loading ? 'Cerrando sesión...' : 'Cerrar sesión'}</button>
+        </> : <>
+          <p>Inicia sesión para guardar y consultar tu carrito privado.</p>
+          {error && <p className="data-error" role="alert">{error}</p>}
+          {feedback && <p className="data-success" role="status">{feedback}</p>}
+          <form className="account-form" onSubmit={submit}>
+            <label>Correo electrónico<input type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required disabled={loading} /></label>
+            <label>Contraseña<input type="password" autoComplete={mode === 'sign-up' ? 'new-password' : 'current-password'} minLength="8" value={password} onChange={(event) => setPassword(event.target.value)} required disabled={loading} /></label>
+            <button className="button button--primary button--wide" type="submit" disabled={loading}>{loading ? 'Conectando...' : mode === 'sign-up' ? 'Crear cuenta' : 'Iniciar sesión'}</button>
+          </form>
+          <button className="text-button account-mode" type="button" onClick={() => { setMode((current) => current === 'sign-up' ? 'sign-in' : 'sign-up'); setError(''); setFeedback('') }} disabled={loading}>
+            {mode === 'sign-up' ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate'}
+          </button>
+        </>}
+      </section>
     </main>
   )
 }

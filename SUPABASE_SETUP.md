@@ -1,75 +1,113 @@
-# Supabase Cloud setup
+# MobileZone + Supabase Cloud
 
-## Environment and installation
+## Alcance de esta integración
 
-- **OS:** Windows 10/11, x64.
-- **Project:** React 19 + Vite, JavaScript ES modules, npm; app and package manifest are in `react-app/`.
-- **Runtime checked:** Node.js v24.19.0 and npm 11.17.0.
-- **CLI:** Supabase CLI v3.0.0, installed as the local development dependency `supabase` in `react-app/package.json`. Run it from the repository root with `npx --prefix react-app supabase <command>`.
-- **SDK:** `@supabase/supabase-js` installed as a runtime dependency.
-- **Docker:** not installed or used. Do not run `supabase start`; this repository is being prepared for Supabase Cloud only.
+- Catálogo remoto de solo lectura para visitantes y usuarios autenticados.
+- Registro e inicio de sesión con Supabase Auth.
+- Un carrito por usuario; cada usuario solo puede consultar y modificar sus artículos mediante RLS.
+- Alta de artículos atómica en Postgres, cantidades enteras de 1 a 99 y precio obtenido del producto relacionado.
+- CRUD administrativo del catálogo y tablas/contacto/privacidad pospuestos por decisión del propietario; no se exponen permisos de escritura pública.
+- La cotización que se muestra en el cliente/WhatsApp es informativa; no crea una orden ni verifica un pago.
 
-## Authentication and project link
+El esquema y las decisiones están en [.docs/supabase-integration/ANALISIS.md](.docs/supabase-integration/ANALISIS.md); el progreso verificable está en [.docs/supabase-integration/CHECKLIST.md](.docs/supabase-integration/CHECKLIST.md).
 
-- CLI version is verified.
-- **Authentication is pending:** `supabase projects list` reported that no access token is available. No access token or other credential has been written to the repository.
-- **Remote project selection and link are pending:** no project reference is configured or linked yet. No remote database or project resources were changed.
+## Requisitos
 
-To authenticate locally, run from the repository root:
+- React 19 + Vite, JavaScript ES modules, npm; app y `package.json` en `react-app/`.
+- Supabase CLI local v3.0.0 como dependencia de desarrollo y `@supabase/supabase-js` como dependencia de runtime.
+- En PowerShell con la política actual de scripts, invocar `npx.cmd` (no `npx.ps1`): `npx.cmd --prefix react-app supabase <command>`.
+- Docker no es necesario para la integración con Cloud; no ejecutar `supabase start`.
+
+## Crear y enlazar el proyecto Cloud
+
+Estado actual: la CLI está autenticada y el proyecto `MobileZone` está creado y enlazado. No volver a ejecutar `projects create`; los comandos de creación siguientes se conservan como referencia histórica. No compartir tokens, contraseñas ni claves en el chat o repositorio.
+
+1. Autenticar localmente y comprobar organización/proyectos existentes:
+
+   ```powershell
+   npx.cmd --prefix react-app supabase login
+   npx.cmd --prefix react-app supabase orgs list
+   npx.cmd --prefix react-app supabase projects list
+   ```
+
+2. Se acordó crear un proyecto nuevo `MobileZone` en la región cercana `sa-east-1` y el tamaño `micro` del plan gratuito. Usar el `org-id` que corresponda a la organización gratuita, sin duplicar un proyecto existente:
+
+   ```powershell
+   npx.cmd --prefix react-app supabase projects create MobileZone --org-id <org-id> --region sa-east-1 --size micro
+   ```
+
+   Si la CLI solicita contraseña de base de datos, introducirla únicamente en el prompt local. No usar `--db-password` con una contraseña en texto en el comando. Esperar a que el proyecto termine y copiar su referencia real.
+
+3. Enlazar la referencia recién creada:
+
+   ```powershell
+   npx.cmd --prefix react-app supabase link --project-ref <project-ref>
+   npx.cmd --prefix react-app supabase projects list
+   ```
+
+   El estado remoto debe comprobarse antes de migrar; no volver a crear el proyecto al reanudar.
+
+## Configuración de Auth y base de datos
+
+La configuración local define la URL pública de GitHub Pages, la redirección de desarrollo Vite, verificación de correo y contraseñas de al menos 8 caracteres. Antes de cambiar el remoto, revisar exactamente las diferencias:
 
 ```powershell
-npx --prefix react-app supabase login
-npx --prefix react-app supabase projects list
+npx.cmd --prefix react-app supabase config diff
 ```
 
-Complete the CLI authentication prompt on this machine. Do not paste an access token into source files, `.env.example`, or chat. Once the intended project is identified, link it from the repository root:
+Aplicar con `supabase config push` solo después de comprobar el diff y confirmar que incluye únicamente valores previstos para Auth/redirecciones:
 
 ```powershell
-npx --prefix react-app supabase link --project-ref <project-ref>
+npx.cmd --prefix react-app supabase config push
 ```
 
-If the CLI asks for a database password, enter it only in the local CLI prompt. Linking associates the local configuration with a Cloud project; it does not push a schema.
+Inspeccionar el destino y el plan de migración antes de aplicar. El `--dry-run` no valida completamente el SQL:
 
-## App configuration
+```powershell
+npx.cmd --prefix react-app supabase db push --dry-run --remote
+npx.cmd --prefix react-app supabase db push --remote --include-seed
+npx.cmd --prefix react-app supabase migration list --remote
+```
 
-`react-app/.env.example` documents the variables used by the Vite app. Copy it to the ignored local file `react-app/.env.local` and set values from the selected Supabase Cloud project:
+La migración `supabase/migrations/20261118191900_mobilezone_catalog_and_owned_carts.sql` crea catálogo, carrito y líneas con RLS. El usuario autenticado solo accede a su carrito; `anon` solo lee productos. La función `add_cart_item` es `SECURITY INVOKER`, exige Auth y aplica el límite en Postgres. La migración está aplicada y se verificó el aislamiento con dos cuentas y denegaciones anónimas.
+
+`supabase/seed.sql` carga 16 registros de catálogo de forma repetible, sin sobrescribir registros ya editados (`ON CONFLICT (sku) DO NOTHING`). `db push` no carga seed por defecto; `--include-seed` lo solicita explícitamente. Revisar la migración y el seed antes de producción.
+
+No se crean roles administrativos ni tablas de contactos/solicitudes en esta fase. No utilizar una clave `service_role` o secreta en el cliente Vite.
+
+## Variables locales de la app
+
+Copiar `react-app/.env.example` a `react-app/.env.local` y obtener en la configuración/API del proyecto la URL y la clave **publishable** (antes anon):
 
 ```dotenv
 VITE_SUPABASE_URL=https://<project-ref>.supabase.co
 VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 ```
 
-Use the project URL and **publishable** key from the Supabase Dashboard/API settings. Vite exposes `VITE_` variables in browser code: these values are intended to be public, but access must be protected by appropriate database policies when database features are added. Never use or expose a `service_role` or secret key in this frontend or in any `VITE_` variable.
+`react-app/.gitignore` excluye `.env` y `.env.*` locales y permite `.env.example`. `src/lib/supabase.js` centraliza el cliente; `src/lib/mobilezoneData.js` concentra consultas y validación. La interfaz informa cuando Supabase no está configurado y no finge haber guardado operaciones remotas.
 
-The `.gitignore` in `react-app/` ignores `.env` and `.env.*` files while allowing `.env.example`. `src/lib/supabase.js` centralizes client initialization through `getSupabaseClient()` and reports a clear error if the local environment is not configured. The client is lazy so the existing application can continue to build before Cloud credentials are supplied.
+## Desarrollo y validación
 
-## Files created or modified
-
-- `react-app/package.json` and `react-app/package-lock.json`: local CLI and JS SDK dependencies.
-- `supabase/config.toml` and `supabase/.gitignore`: CLI project scaffold; not linked to Cloud yet.
-- `react-app/.gitignore`: protects local dotenv files.
-- `react-app/.env.example`: documents required public client variables.
-- `react-app/src/lib/supabase.js`: centralized lazy client.
-- `react-app/src/lib/supabase.test.js`: client initialization/configuration checks.
-
-No migrations, schema, tables, user authentication flows, CRUD, or remote database changes were created.
-
-## Useful commands and validation
-
-From the repository root:
+Desde `react-app/`:
 
 ```powershell
-npx --prefix react-app supabase --version
-npx --prefix react-app supabase projects list
-npx --prefix react-app supabase status
+npm.cmd ci
+npm.cmd test
+npm.cmd run build
+npm.cmd run dev
 ```
 
-From `react-app/`:
+Prueba manual remota completada el 2026-11-23: se registraron y confirmaron dos cuentas, se probó alta/cambio/eliminación de artículos, persistencia tras recarga y aislamiento entre carritos. La API anónima consultó los 16 productos y recibió HTTP 401 al leer o escribir carritos. Pendiente: limpiar el artículo de prueba de la segunda cuenta y verificar el despliegue tras configurar variables de GitHub Actions.
 
-```powershell
-npm ci
-npm test
-npm run build
-```
+## Estado actual y siguiente acción (2026-11-23)
 
-The project is prepared for the initial application integration, but Cloud authentication, selecting/linking the intended project, and supplying local URL/publishable-key values still require completion. The full dependency audit also reports a pre-existing high-severity advisory affecting Vite 8.3.0–8.3.2; production dependencies have no audit findings. Review a Vite update separately before deployment.
+- Supabase CLI autenticada y proyecto `MobileZone` enlazado: referencia `pqtgjvdlvwrkywmrbktv`, región `sa-east-1`, estado `ACTIVE_HEALTHY`.
+- Configuración remota de Auth aplicada: URL pública de GitHub Pages, redirección para desarrollo local y longitud mínima de contraseña de 8. `supabase config diff` confirmó cero diferencias pendientes.
+- Migración `20261118191900_mobilezone_catalog_and_owned_carts.sql` y `seed.sql` aplicados. `supabase migration list --remote` confirmó la migración.
+- `react-app/.env.local` contiene la URL y clave publicable; Git la ignora. No guardar claves secretas o `service_role` en el cliente.
+- Pruebas manuales: dos cuentas, confirmación e inicio de sesión, alta/cambio/eliminación de artículos, persistencia tras recarga y aislamiento de carritos. API anónima leyó el catálogo (16 productos) y recibió HTTP 401 para `carts`, `cart_items` y `add_cart_item`.
+- Suite local: 14/14 pruebas pasan; build de producción pasa.
+- Variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` creadas en GitHub Actions y verificadas contra `.env.local` sin mostrar sus valores. El artículo de prueba restante se eliminó; quedan dos cuentas Auth de prueba con carritos vacíos.
+- Pendiente: subir los cambios locales a `main`, verificar la ejecución de Actions y probar el sitio publicado. El workflow `.github/workflows/pages.yml` consume las variables y detiene el build si faltan.
+
+El usuario decidió posponer el CRUD administrativo del catálogo, soporte/contacto, solicitudes de privacidad y roles. El estado detallado está en [.docs/supabase-integration/CHECKLIST.md](.docs/supabase-integration/CHECKLIST.md).

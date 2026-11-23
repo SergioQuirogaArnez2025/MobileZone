@@ -18,6 +18,10 @@ npm run build
 npm run preview
 ```
 
+## Supabase
+
+El catálogo se lee de Supabase y el carrito remoto requiere iniciar sesión desde **Mi cuenta**. Configura primero las variables públicas en `.env.local` usando [.env.example](./.env.example). La CLI, los comandos de migración, RLS, Auth y el procedimiento de verificación están en [SUPABASE_SETUP.md](../SUPABASE_SETUP.md).
+
 ## GitHub Pages
 
 El workflow [Deploy to GitHub Pages](../.github/workflows/pages.yml) compila `react-app` y publica el contenido de `dist` en cada push a `main`. El sitio está disponible en <https://sergioquirogaarnez2025.github.io/MobileZone/>.

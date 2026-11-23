@@ -168,6 +168,19 @@
 .newsletter-form { max-width: 510px; margin: 0 auto; display: flex; gap: 10px; }
 .newsletter-form input { min-width: 0; min-height: 46px; flex: 1; padding: 11px 14px; border: 1px solid var(--line); border-radius: 8px; background: white; }
 .form-feedback--success { color: var(--mint); font-weight: 700; }
+.data-error { color: #b42318; font-size: 13px; font-weight: 600; }
+.data-success { color: #147d47; font-size: 13px; font-weight: 600; }
+.data-loading { color: var(--muted); font-size: 14px; }
+.integration-notice { margin: 0; padding: 11px 24px; color: #614600; background: #fff3cc; font-size: 13px; text-align: center; }
+.integration-notice--error { color: #8d1b14; background: #ffe4e1; }
+.account-page { min-height: 55vh; padding-block: 64px; display: grid; place-items: start center; }
+.account-panel { width: min(100%,500px); padding: clamp(24px,4vw,40px); border: 1px solid var(--line); border-radius: 14px; background: white; box-shadow: var(--shadow); }
+.account-panel h1 { margin: 4px 0 10px; font-size: 32px; }
+.account-form { display: grid; gap: 18px; margin-top: 24px; }
+.account-form label { display: grid; gap: 7px; color: #4b5b70; font-size: 13px; font-weight: 700; }
+.account-form input { width: 100%; min-height: 46px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: #f8fafc; font-size: 14px; }
+.account-form input:focus { border-color: var(--blue); outline: 0; box-shadow: 0 0 0 4px rgba(21,94,239,.12); }
+.account-mode { margin-top: 18px; }
 
 .contact-page { padding-top: 62px; }
 .contact-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.2fr); gap: 28px; }
@@ -237,6 +250,9 @@
 .empty-cart p { margin-bottom: 20px; }
 .status-toast { position: fixed; right: 24px; bottom: 24px; z-index: 70; display: flex; align-items: center; gap: 10px; width: max-content; max-width: min(420px,calc(100vw - 32px)); padding: 14px 18px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; color: white; background: #10233f; box-shadow: 0 16px 40px rgba(16,35,63,.24); font-size: 14px; font-weight: 600; animation: rise-in .22s both; }
 .status-toast .material-symbols-outlined { color: #6ee7a1; font-size: 21px; }
+.status-toast--error { background: #8d1b14; }
+.status-toast--error .material-symbols-outlined { color: #ffd2cc; }
+.status-toast--info .material-symbols-outlined { color: #93c5fd; }
 
 .landing-hero { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; padding-block: 72px; }
 .landing-hero h1 { max-width: 13ch; }

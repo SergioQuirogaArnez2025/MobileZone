@@ -4,6 +4,7 @@ export const routeTitles = {
   '/comparar': 'Comparación - MobileZone',
   '/ofertas': 'Ofertas especiales - MobileZone',
   '/contacto': 'Contacto - MobileZone',
+  '/cuenta': 'Mi cuenta - MobileZone',
   '/carrito': 'Carrito de compras - MobileZone',
   '/landing': 'MobileZone | Premium Smartphones',
 }

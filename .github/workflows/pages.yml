@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -29,6 +32,12 @@ jobs:
       - name: Install dependencies
         working-directory: react-app
         run: npm ci
+      - name: Check Supabase build variables
+        run: |
+          if [ -z "$VITE_SUPABASE_URL" ] || [ -z "$VITE_SUPABASE_PUBLISHABLE_KEY" ]; then
+            echo "::error::Set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY as GitHub Actions repository variables."
+            exit 1
+          fi
       - name: Run unit tests
         working-directory: react-app
         run: npm test

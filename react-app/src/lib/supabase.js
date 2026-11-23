@@ -3,6 +3,10 @@ import { createClient } from '@supabase/supabase-js'
 const viteEnv = import.meta.env ?? {}
 let client
 
+export function isSupabaseConfigured(environment = viteEnv) {
+  return Boolean(environment.VITE_SUPABASE_URL?.trim() && environment.VITE_SUPABASE_PUBLISHABLE_KEY?.trim())
+}
+
 export function getSupabaseClient(environment = viteEnv) {
   const url = environment.VITE_SUPABASE_URL?.trim()
   const publishableKey = environment.VITE_SUPABASE_PUBLISHABLE_KEY?.trim()
