@@ -108,6 +108,6 @@ Prueba manual remota completada el 2026-11-23: se registraron y confirmaron dos 
 - Pruebas manuales: dos cuentas, confirmación e inicio de sesión, alta/cambio/eliminación de artículos, persistencia tras recarga y aislamiento de carritos. API anónima leyó el catálogo (16 productos) y recibió HTTP 401 para `carts`, `cart_items` y `add_cart_item`.
 - Suite local: 14/14 pruebas pasan; build de producción pasa.
 - Variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` creadas en GitHub Actions y verificadas contra `.env.local` sin mostrar sus valores. El artículo de prueba restante se eliminó; quedan dos cuentas Auth de prueba con carritos vacíos.
-- Pendiente: subir los cambios locales a `main`, verificar la ejecución de Actions y probar el sitio publicado. El workflow `.github/workflows/pages.yml` consume las variables y detiene el build si faltan.
+- Despliegue publicado: commit `818228b` en `main`; GitHub Actions terminó correctamente (run 45223177861) y la URL de GitHub Pages respondió HTTP 200. Pendiente: probar manualmente en la URL publicada catálogo, registro/confirmación, inicio de sesión y carrito. El workflow `.github/workflows/pages.yml` consume las variables y detiene el build si faltan.
 
 El usuario decidió posponer el CRUD administrativo del catálogo, soporte/contacto, solicitudes de privacidad y roles. El estado detallado está en [.docs/supabase-integration/CHECKLIST.md](.docs/supabase-integration/CHECKLIST.md).

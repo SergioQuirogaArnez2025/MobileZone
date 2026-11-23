@@ -10,7 +10,7 @@ Estado actualizado: 2026-11-23. El alcance de esta fase es catálogo público de
 - [x] Crear, aplicar y verificar migraciones y permisos. Evidencia: `db push --dry-run --remote --include-seed` mostró una migración y `supabase/seed.sql`; `db push --remote --include-seed --yes` los aplicó; `migration list --remote` confirmó `20261118191900`. SQL habilita RLS, limita carritos por `auth.uid()`, deja `products` en lectura pública y restringe `add_cart_item` a `authenticated`.
 - [x] Configurar SDK y variables locales. Evidencia: `react-app/src/lib/supabase.js`, `react-app/src/lib/mobilezoneData.js`, `.env.example`, `.gitignore` y `react-app/.env.local` con URL y clave publicable. `.env.local` está ignorado por Git.
 - [x] Configurar variables de GitHub Actions. Se crearon `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` en el repositorio; la API confirmó que coinciden con `.env.local` (valores no mostrados). `.github/workflows/pages.yml` las lee y falla explícitamente si faltan.
-- [ ] Publicar y comprobar GitHub Pages. Requiere subir los cambios locales a `main`; el workflow aún no se ha ejecutado.
+- [x] Publicar y comprobar GitHub Pages. Commit `818228b` subido a `main`; GitHub Actions terminó `success` (run 45223177861) y la URL pública respondió HTTP 200.
 - [ ] Integrar y comprobar cada operación CRUD requerida. Estado por entidad:
   - `products`: R pública implementada y verificada (16 filas por API anónima); C/U/D administrativos pospuestos por decisión de alcance.
   - `carts`: crear/obtener y leer por cuenta implementados; aislamiento entre cuentas verificado. U no aplica a los atributos actuales; D del carrito no se ofrece en UI.
@@ -28,10 +28,9 @@ Estado actualizado: 2026-11-23. El alcance de esta fase es catálogo público de
 - [x] `supabase config diff`: cero diferencias remotas tras aplicar configuración de Auth.
 - [x] Cliente anónimo: catálogo accesible; lectura de carrito y RPC de escritura de carrito denegadas con HTTP 401.
 - [x] Probar directamente en remoto valores inválidos con una sesión autenticada. Las llamadas a `add_cart_item` con cantidades 0 y 100 fueron rechazadas por Postgres con SQLSTATE `23514` y el mensaje `Quantity must be an integer between 1 and 99`; la función no insertó filas.
-- [ ] Verificar el despliegue de GitHub Pages después de subir los cambios locales a `main`.
+- [x] Verificar el despliegue de GitHub Pages después de subir los cambios a `main`; workflow exitoso y respuesta HTTP 200.
 
 ## Próximos pasos
 
-1. Subir los cambios locales a `main` y revisar que GitHub Actions complete pruebas, build y despliegue.
-2. Probar la URL publicada: catálogo, confirmación de correo, inicio de sesión y carrito.
-3. Decidir si se amplía el alcance para administración de productos, contacto, privacidad o roles; no implementarlos sin definir permisos y flujos.
+1. Probar manualmente la URL publicada: catálogo, confirmación de correo, inicio de sesión y carrito.
+2. Decidir si se amplía el alcance para administración de productos, contacto, privacidad o roles; no implementarlos sin definir permisos y flujos.

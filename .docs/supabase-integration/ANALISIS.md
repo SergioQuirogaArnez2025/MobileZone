@@ -69,7 +69,7 @@ El PDF describe el uso y las reglas esperadas, pero no incluye una matriz CRUD f
 3. Migración y seed aplicados; `supabase migration list --remote` confirmó `20261118191900`. El API anónimo devolvió 16 productos y denegó lectura de `carts`/`cart_items` y ejecución anónima de `add_cart_item` (HTTP 401).
 4. Prueba manual con dos cuentas: registro, confirmación, inicio de sesión, carrito persistente, cambio de cantidad, eliminación y aislamiento entre cuentas. La suite tiene 14/14 pruebas y la build de producción pasa.
 5. Se pospusieron C/U/D administrativos de catálogo, contacto, privacidad y roles por decisión del usuario. Se eliminó el único artículo agregado durante la prueba; quedan dos cuentas Auth de prueba con sus carritos vacíos.
-6. Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` ya están creadas y verificadas en GitHub Actions. Falta subir los cambios locales a `main` y validar el despliegue. Las llamadas autenticadas al RPC con cantidades 0 y 100 fueron rechazadas por Postgres con SQLSTATE `23514` antes de insertar; las escrituras anónimas a carrito/RPC también fueron denegadas.
+6. Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` ya están creadas y verificadas en GitHub Actions. El commit `818228b` se subió a `main`; GitHub Actions terminó `success` (run 45223177861) y la URL publicada respondió HTTP 200. Las llamadas autenticadas al RPC con cantidades 0 y 100 fueron rechazadas por Postgres con SQLSTATE `23514` antes de insertar; las escrituras anónimas a carrito/RPC también fueron denegadas.
 
 ## Mapa de páginas
 
