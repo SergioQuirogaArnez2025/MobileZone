@@ -1,5 +1,7 @@
 # Cambios y mejoras realizados en MobileZone
 
+> **Nota de vigencia (23 de noviembre de 2026):** este documento registra el análisis previo a la integración con Supabase. Las menciones a una base de datos futura describen el estado histórico de esa revisión. El estado actual, los resultados y los pendientes de entrega están en [el informe procesual](./informe-procesual-mobilezone.md) y la [guía de presentación](./guia-presentacion-mobilezone.md).
+
 Este documento resume las correcciones realizadas a partir de la retroalimentación recibida sobre el modelo de datos, el carrito y la privacidad. Distingue entre mejoras implementadas en el frontend y propuestas para cuando se construya una base de datos o API.
 
 ## Resumen ejecutivo

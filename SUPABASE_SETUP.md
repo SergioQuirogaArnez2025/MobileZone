@@ -97,9 +97,9 @@ npm.cmd run build
 npm.cmd run dev
 ```
 
-Prueba manual remota completada el 2026-11-23: se registraron y confirmaron dos cuentas, se probó alta/cambio/eliminación de artículos, persistencia tras recarga y aislamiento entre carritos. La API anónima consultó los 16 productos y recibió HTTP 401 al leer o escribir carritos. Pendiente: limpiar el artículo de prueba de la segunda cuenta y verificar el despliegue tras configurar variables de GitHub Actions.
+Prueba manual remota completada el 2026-11-23: dos cuentas confirmadas probaron alta/cambio/eliminación, persistencia tras recarga y aislamiento entre carritos. La API anónima consultó los 16 productos y recibió HTTP 401 al leer o escribir carritos. Los artículos temporales de la prueba se limpiaron; las dos cuentas de prueba se conservaron vacías.
 
-## Estado actual y siguiente acción (2026-11-23)
+## Estado actual y tareas de entrega (2026-11-23)
 
 - Supabase CLI autenticada y proyecto `MobileZone` enlazado: referencia `pqtgjvdlvwrkywmrbktv`, región `sa-east-1`, estado `ACTIVE_HEALTHY`.
 - Configuración remota de Auth aplicada: URL pública de GitHub Pages, redirección para desarrollo local y longitud mínima de contraseña de 8. `supabase config diff` confirmó cero diferencias pendientes.
@@ -108,6 +108,6 @@ Prueba manual remota completada el 2026-11-23: se registraron y confirmaron dos 
 - Pruebas manuales: dos cuentas, confirmación e inicio de sesión, alta/cambio/eliminación de artículos, persistencia tras recarga y aislamiento de carritos. API anónima leyó el catálogo (16 productos) y recibió HTTP 401 para `carts`, `cart_items` y `add_cart_item`.
 - Suite local: 14/14 pruebas pasan; build de producción pasa.
 - Variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` creadas en GitHub Actions y verificadas contra `.env.local` sin mostrar sus valores. El artículo de prueba restante se eliminó; quedan dos cuentas Auth de prueba con carritos vacíos.
-- Despliegue publicado: commit `818228b` en `main`; GitHub Actions terminó correctamente (run 45223177861) y la URL de GitHub Pages respondió HTTP 200. Pendiente: probar manualmente en la URL publicada catálogo, registro/confirmación, inicio de sesión y carrito. El workflow `.github/workflows/pages.yml` consume las variables y detiene el build si faltan.
+- Despliegue publicado: commit `8c2eb02` en `main`; GitHub Actions terminó correctamente (run 45223633677) y la URL de GitHub Pages respondió HTTP 200. Pendiente para la presentación: grabar el video y mostrar en Supabase la fila creada desde la web. El [informe procesual](docs/informe-procesual-mobilezone.md) y la [guía de presentación](docs/guia-presentacion-mobilezone.md) describen cómo hacerlo. El workflow `.github/workflows/pages.yml` consume las variables y detiene el build si faltan.
 
 El usuario decidió posponer el CRUD administrativo del catálogo, soporte/contacto, solicitudes de privacidad y roles. El estado detallado está en [.docs/supabase-integration/CHECKLIST.md](.docs/supabase-integration/CHECKLIST.md).

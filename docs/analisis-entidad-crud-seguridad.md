@@ -1,3 +1,5 @@
+> **Nota de vigencia (23 de noviembre de 2026):** este análisis describe el estado anterior a la integración con Supabase. La aplicación ya cuenta con base remota para catálogo y carritos. Para el estado actual y las funciones aún fuera de alcance, consulta [el informe procesual](./informe-procesual-mobilezone.md) y la [guía de presentación](./guia-presentacion-mobilezone.md).
+
 # Análisis de entidad, operaciones CRUD y seguridad de MobileZone
 
 **Fecha:** 28 de octubre de 2026.
