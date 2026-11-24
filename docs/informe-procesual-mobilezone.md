@@ -1,7 +1,7 @@
 # Informe procesual del proyecto MobileZone
 
-**Fecha de entrega:** 23 de noviembre de 2026  
-**Repositorio:** https://github.com/SergioQuirogaArnez2025/MobileZone  
+**Fecha de entrega:** 23 de noviembre de 2026
+**Repositorio:** https://github.com/SergioQuirogaArnez2025/MobileZone
 **Sitio publicado:** https://sergioquirogaarnez2025.github.io/MobileZone/
 
 ## Resumen del proyecto
